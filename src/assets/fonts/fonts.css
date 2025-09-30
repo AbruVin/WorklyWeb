@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Vollkorn-BoldItalic';
+  src: url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
