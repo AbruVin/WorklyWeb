@@ -5,6 +5,7 @@ import { useState } from 'react'
 import NavigationHeader from './navTab/navigationHeader'
 import Home from './sections/home.jsx'
 import OurProffer from './sections/ourProffer.jsx'
+import Footer from './sections/footer.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,6 +16,7 @@ function App() {
       <main>
         <Home />
         <OurProffer />
+        <Footer />
       </main>
     </div>
   )

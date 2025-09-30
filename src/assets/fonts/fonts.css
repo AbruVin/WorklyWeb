@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap');
 
 @font-face {
-  font-family: 'Montserrat SemiBold';
-  src: local('Montserrat SemiBold'), local('Montserrat-SemiBold'),
+  font-family: 'Montserrat-SemiBold';
+  src: local('Montserrat-SemiBold'), local('Montserrat-SemiBold'),
     url('https://fonts.gstatic.com/s/montserrat/v26/JTUQjIg1_i6t8kCHKm45_QphziTn89dtpQ.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Montserrat ExtraBold Italic';
-  src: local('Montserrat ExtraBold Italic'), local('Montserrat-ExtraBoldItalic'),
+  font-family: 'Montserrat-ExtraBold-Italic';
+  src: local('Montserrat-ExtraBold-Italic'), local('Montserrat-ExtraBoldItalic'),
     url('https://fonts.gstatic.com/s/montserrat/v26/JTUQjIg1_i6t8kCHKm459WxZqi7j89dtpC4.woff2') format('woff2');
   font-weight: 800;
   font-style: italic;
@@ -20,10 +20,4 @@
   src: url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap') format('truetype');
   font-weight: 700;
   font-style: italic;
-}
-@font-face {
-  font-family: 'Montserrat-SemiBold';
-  src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap') format('truetype');
-  font-weight: 600;
-  font-style: normal;
 }
