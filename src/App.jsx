@@ -4,6 +4,7 @@ import { useState } from 'react'
 // import './App.css'
 import NavigationHeader from './navTab/navigationHeader'
 import Home from './sections/home.jsx'
+import Problematic from './sections/problematic.jsx'
 import OurProffer from './sections/ourProffer.jsx'
 import Footer from './sections/footer.jsx'
 
@@ -15,6 +16,7 @@ function App() {
       <NavigationHeader />
       <main>
         <Home />
+        <Problematic />
         <OurProffer />
         <Footer />
       </main>
