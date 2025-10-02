@@ -28,7 +28,7 @@ export default function Footer() {
           <div style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
             {/* Logo Workly */}
               <img src={WhiteLogo} alt="Workly logo" style={{ width: 25, height: 25, display: "block", marginRight: "8px" }} />
-            <span style={{ fontFamily: 'Vollkorn', fontStyle: "italic", fontWeight: 700, fontSize: 22, color: "#fff" }}>Workly</span>
+            <span style={{ fontFamily: 'Vollkorn', fontStyle: "italic", fontWeight: 700, fontSize: 22, letterSpacing: 0.7, color: "#fff" }}>Workly</span>
           </div>
           <div style={{ color: "#fff", fontSize: 15, marginBottom: 18, textAlign: "left" }}>
             Conectamos <span style={{ fontFamily: 'Montserrat', fontStyle: "italic", fontWeight: 700  }}>talentos</span><br />
