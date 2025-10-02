@@ -129,40 +129,44 @@ export default function OurProffer() {
           justifyContent: "center",
           boxSizing: "border-box"
         }}>
-          {features.map((f, i) => (
-            <div key={i} style={{
-              background: "#f4f7fb",
-              borderRadius: 12,
-              padding: "32px 24px 24px 24px",
-              minWidth: 180,
-              width: "100%",
-              maxWidth: 260,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              boxShadow: "0 1px 6px rgba(0, 0, 0, 0.25)"
-            }}>
-              <div style={{
-                background: selected === "empresa" ? "#0B1175" : "#3B2580",
-                borderRadius: "50%",
-                width: 72,
-                height: 72,
+         {features.map((f, i) => {
+            // Extraer color del icono original
+            const iconColor = f.icon.props.color || "#0B1175";
+            return (
+              <div key={i} style={{
+                background: "#f4f7fb",
+                borderRadius: 12,
+                padding: "32px 24px 24px 24px",
+                minWidth: 180,
+                width: "100%",
+                maxWidth: 260,
                 display: "flex",
+                flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 16
+                boxShadow: "0 1px 6px rgba(0, 0, 0, 0.25)"
               }}>
-                {React.cloneElement(f.icon, { color: "#fff" })}
+                <div style={{
+                  background: iconColor,
+                  borderRadius: "50%",
+                  width: 72,
+                  height: 72,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 16
+                }}>
+                  {React.cloneElement(f.icon, { color: "#fff" })}
+                </div>
+                <div style={{
+                  fontFamily: 'Montserrat',
+                  fontWeight: 500,
+                  fontSize: 18,
+                  color: "#232323",
+                  textAlign: "center"
+                }}>{f.title}</div>
               </div>
-              <div style={{
-                fontFamily: 'Montserrat',
-                fontWeight: 500,
-                fontSize: 18,
-                color: "#232323",
-                textAlign: "center"
-              }}>{f.title}</div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
