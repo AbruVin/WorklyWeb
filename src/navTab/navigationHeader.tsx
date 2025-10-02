@@ -53,8 +53,9 @@ export default function NavigationHeader() {
 				<span style={brandStyle}>Workly</span>
 			</div>
 			<nav style={navStyle}>
-				<span style={{ cursor: "pointer" }}>Nosotros</span>
+				<span style={{ cursor: "pointer" }}>Inicio</span>
 				<span style={{ cursor: "pointer" }}>Propuesta</span>
+				<span style={{ cursor: "pointer" }}>Funciones</span>
 			</nav>
 		</header>
 	);
