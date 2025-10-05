@@ -50,7 +50,7 @@ export default function Footer() {
               <li style={{ color: "#bdb8c7", fontWeight: 500, fontFamily: 'Montserrat', fontSize: 15 }}>Funciones</li>
             </ul>
           </nav>
-          <div style={{ color: "#fff", fontWeight: 700, fontSize: 15, fontFamily: 'Montserrat', marginTop: 8, position: "absolute", bottom: 26 }}>
+          <div style={{ color: "#fff", fontWeight: 700, fontSize: 15, fontFamily: 'Montserrat', marginTop: 28 }}>
             © 2025 Workly
           </div>
         </div>
