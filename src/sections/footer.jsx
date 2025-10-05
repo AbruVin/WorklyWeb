@@ -46,12 +46,11 @@ export default function Footer() {
           <nav style={{ marginBottom: 24 }}>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, textAlign: "right" }}>
               <li style={{ fontWeight: 700, color: "#fff", fontFamily: 'Montserrat', fontSize: 16, marginBottom: 2 }}>Inicio</li>
-              <li style={{ color: "#bdb8c7", fontWeight: 500, fontFamily: 'Montserrat', fontSize: 15, marginBottom: 2 }}>Nosotros</li>
               <li style={{ color: "#bdb8c7", fontWeight: 500, fontFamily: 'Montserrat', fontSize: 15, marginBottom: 2 }}>Propuesta</li>
               <li style={{ color: "#bdb8c7", fontWeight: 500, fontFamily: 'Montserrat', fontSize: 15 }}>Funciones</li>
             </ul>
           </nav>
-          <div style={{ color: "#fff", fontWeight: 700, fontSize: 15, fontFamily: 'Montserrat', marginTop: 8 }}>
+          <div style={{ color: "#fff", fontWeight: 700, fontSize: 15, fontFamily: 'Montserrat', marginTop: 8, position: "absolute", bottom: 26 }}>
             © 2025 Workly
           </div>
         </div>
