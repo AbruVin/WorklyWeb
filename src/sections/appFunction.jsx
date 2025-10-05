@@ -24,7 +24,6 @@ const boxContentStyle = {
     height: "100%"
 };
 
-// Componente para icono sobre hexágono SVG
 const HexIcon = ({ icon, hexImg, alt }) => (
     <span style={{
         width: 56,
@@ -45,14 +44,12 @@ const HexIcon = ({ icon, hexImg, alt }) => (
 const SlideRec = () => {
     const [activeStep, setActiveStep] = useState(1);
 
-    // Relación pasos -> imágenes
     const stepImages = {
         1: RecFunc1,
         2: RecFunc2,
         3: RecFunc3
     };
 
-    // Helper para renderizar paso
     const Step = ({ step, label, borderColor, icon, hexImg, isBold }) => (
         <div
             onClick={() => setActiveStep(step)}
@@ -61,7 +58,7 @@ const SlideRec = () => {
                 alignItems: "center",
                 position: "relative",
                 cursor: "pointer",
-                opacity: activeStep === step ? 1 : 0.4, // 👈 opacidad condicional
+                opacity: activeStep === step ? 1 : 0.4,
                 transition: "opacity 0.3s ease"
             }}
         >
@@ -71,7 +68,7 @@ const SlideRec = () => {
                     border: `2px solid ${borderColor}`,
                     borderRadius: 16,
                     padding: "10px 10px 10px 35px",
-                    background: activeStep === step ? "#f3f3ff" : "transparent", // fondo paso activo
+                    background: activeStep === step ? "#f3f3ff" : "transparent",
                     textAlign: "left",
                     marginLeft: -28,
                     minWidth: 260,
@@ -103,7 +100,6 @@ const SlideRec = () => {
                 height: "100%"
             }}
         >
-            {/* Columna izquierda: icono empresa y móvil */}
             <div
                 style={{
                     display: "flex",
@@ -144,8 +140,6 @@ const SlideRec = () => {
                     }}
                 />
             </div>
-
-            {/* Columna derecha: pasos */}
             <div
                 style={{
                     flex: 1,
@@ -186,34 +180,33 @@ const SlideRec = () => {
 const SlideEmp = () => {
     const [activeStep, setActiveStep] = useState(1);
 
-    // Relación pasos -> imágenes
     const stepImages = {
         1: EmpFunc1,
         2: EmpFunc2,
         3: EmpFunc3
     };
 
-    // Helper para renderizar paso
     const Step = ({ step, label, borderColor, icon, hexImg }) => (
         <div
             onClick={() => setActiveStep(step)}
             style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-end",
+                justifyContent: "flex-start",
                 position: "relative",
                 cursor: "pointer",
                 opacity: activeStep === step ? 1 : 0.4,
             }}
         >
+            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} />
             <div
                 style={{
                     border: `2px solid ${borderColor}`,
                     borderRadius: 16,
-                    padding: "10px 35px 10px 10px",
-                    background: activeStep === step ? "#f3f3ff" : "transparent", // resaltar paso activo
-                    textAlign: "right",
-                    marginRight: -28,
+                    padding: "10px 10px 10px 35px",
+                    background: activeStep === step ? "#f3f3ff" : "transparent",
+                    textAlign: "left",
+                    marginLeft: -28,
                     minWidth: 260,
                     transition: "all 0.3s ease"
                 }}
@@ -229,7 +222,6 @@ const SlideEmp = () => {
                     {label}
                 </span>
             </div>
-            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} />
         </div>
     );
 
@@ -244,7 +236,46 @@ const SlideEmp = () => {
                 height: "100%"
             }}
         >
-            {/* Columna izquierda: pasos */}
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    height: "100%",
+                    minWidth: 180
+                }}
+            >
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        marginBottom: 16
+                    }}
+                >
+                    <span
+                        style={{
+                            color: "#948AA0",
+                            fontWeight: 600,
+                            fontSize: 16,
+                            fontFamily: "Montserrat"
+                        }}
+                    >
+                        Empleados
+                    </span>
+                    <IoBriefcase size={24} color="#948AA0" />
+                </div>
+                <img
+                    src={stepImages[activeStep]}
+                    alt="Empleados"
+                    style={{
+                        width: 240,
+                        marginTop: 40,
+                        marginLeft: 8,
+                        transition: "all 0.3s ease"
+                    }}
+                />
+            </div>
             <div
                 style={{
                     flex: 1,
@@ -274,49 +305,6 @@ const SlideEmp = () => {
                     borderColor="#4B1C84"
                     icon={<IoHourglassOutline size={32} color="#4B1C84" />}
                     hexImg={VioletHex}
-                />
-            </div>
-
-            {/* Columna derecha: icono empleados y móvil */}
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-end",
-                    height: "100%",
-                    minWidth: 180
-                }}
-            >
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        marginBottom: 16,
-                        alignSelf: "flex-end"
-                    }}
-                >
-                    <span
-                        style={{
-                            color: "#948AA0",
-                            fontWeight: 600,
-                            fontSize: 16,
-                            fontFamily: "Montserrat"
-                        }}
-                    >
-                        Empleados
-                    </span>
-                    <IoBriefcase size={24} color="#948AA0" />
-                </div>
-                <img
-                    src={stepImages[activeStep]}
-                    alt="Empleados"
-                    style={{
-                        width: 240,
-                        marginTop: 40,
-                        marginRight: 8,
-                        transition: "all 0.3s ease"
-                    }}
                 />
             </div>
         </div>
@@ -360,7 +348,7 @@ export default function Functions() {
                 width: "100vw",
                 minHeight: "100vh",
                 display: "flex",
-                flexDirection: "column", // 👈 apilamos en columna
+                flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 background: "#f4f7fb",
@@ -369,7 +357,6 @@ export default function Functions() {
                 overflow: "hidden",
             }}
         >
-            {/* 👉 Título ahora arriba */}
             <h2 style={{
                 textAlign: "center",
                 fontWeight: 700,
@@ -382,8 +369,6 @@ export default function Functions() {
                 <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>funciona</span>
                 <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>
             </h2>
-
-            {/* 👉 Contenedor de los slides separado del título */}
             <div
                 style={{
                     width: 900,
@@ -396,7 +381,6 @@ export default function Functions() {
                     gap: 32,
                 }}
             >
-                {/* Chevron izquierda */}
                 {current === 1 && (
                     <span
                         style={{
@@ -415,8 +399,6 @@ export default function Functions() {
                         <IoChevronBack />
                     </span>
                 )}
-
-                {/* SlideRec */}
                 <div
                     style={{
                         ...boxBaseStyle,
@@ -428,8 +410,6 @@ export default function Functions() {
                 >
                     <SlideRec />
                 </div>
-
-                {/* SlideEmp */}
                 <div
                     style={{
                         ...boxBaseStyle,
@@ -441,8 +421,6 @@ export default function Functions() {
                 >
                     <SlideEmp />
                 </div>
-
-                {/* Chevron derecha */}
                 {current === 0 && (
                     <span
                         style={{
