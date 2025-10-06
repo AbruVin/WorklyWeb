@@ -2,14 +2,31 @@ import React, { useState, useEffect } from "react";
 import img1 from "../assets/homeImgs/imgHomePC1.svg";
 import img2 from "../assets/homeImgs/imgHomePC2.svg";
 import img3 from "../assets/homeImgs/imgHomePC3.svg";
+import img1Cel from "../assets/homeImgs/imgHomeCel1.svg";
+import img2Cel from "../assets/homeImgs/imgHomeCel2.svg";
+import img3Cel from "../assets/homeImgs/imgHomeCel3.svg";
 import "../App.css";
 import { IoChevronForward, IoChevronBack, IoChevronDown } from "react-icons/io5";
 
-const images = [img1, img2, img3];
+
+// Custom hook para detectar si es móvil
+function useIsMobile(breakpoint = 768) {
+	const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
+	useEffect(() => {
+		const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, [breakpoint]);
+	return isMobile;
+}
 
 
 export default function Home() {
 	const [current, setCurrent] = useState(0);
+	const isMobile = useIsMobile();
+	const images = isMobile
+		? [img1Cel, img2Cel, img3Cel]
+		: [img1, img2, img3];
 
 	// Slide automático
 	useEffect(() => {
@@ -17,7 +34,7 @@ export default function Home() {
 			setCurrent((prev) => (prev + 1) % images.length);
 		}, 4000); // más lento
 		return () => clearInterval(interval);
-	}, []);
+	}, [images.length]);
 
 	// Funciones para navegación
 	const goPrev = () => setCurrent((prev) => (prev - 1 + images.length) % images.length);
