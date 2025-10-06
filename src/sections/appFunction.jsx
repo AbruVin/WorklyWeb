@@ -133,9 +133,7 @@ const SlideRec = () => {
                     src={stepImages[activeStep]}
                     alt="Empresas"
                     style={{
-                        width: 240,
-                        marginTop: 40,
-                        marginLeft: 8,
+                        width: 340,
                         transition: "all 0.3s ease"
                     }}
                 />
@@ -269,9 +267,7 @@ const SlideEmp = () => {
                     src={stepImages[activeStep]}
                     alt="Empleados"
                     style={{
-                        width: 240,
-                        marginTop: 40,
-                        marginLeft: 8,
+                        width: 340,
                         transition: "all 0.3s ease"
                     }}
                 />
@@ -312,14 +308,6 @@ const SlideEmp = () => {
 };
 
 export default function Functions() {
-    const [current, setCurrent] = useState(0);
-    const inactiveOffset = 80;
-
-    const handleBoxClick = (idx) => {
-        if (idx === current) return;
-        setCurrent(idx);
-    };
-
     const boxBaseStyle = {
         background: "#f4f7fb",
         borderRadius: 16,
@@ -332,14 +320,8 @@ export default function Functions() {
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        position: "absolute",
-        left: 0,
-        right: 0,
-        margin: "0 auto",
-        transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.6s cubic-bezier(0.4,0,0.2,1)",
         boxSizing: "border-box",
         zIndex: 2,
-        cursor: "pointer"
     };
 
     return (
@@ -371,74 +353,21 @@ export default function Functions() {
             </h2>
             <div
                 style={{
-                    width: 900,
+                    width: 1500,
                     maxWidth: "98vw",
                     height: 440,
-                    position: "relative",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     gap: 32,
                 }}
             >
-                {current === 1 && (
-                    <span
-                        style={{
-                            position: "absolute",
-                            left: 90,
-                            top: "50%",
-                            transform: "translate(-60px, -50%)",
-                            fontSize: 44,
-                            color: "#4B2676",
-                            cursor: "pointer",
-                            zIndex: 20,
-                            padding: 6,
-                        }}
-                        onClick={() => handleBoxClick(0)}
-                    >
-                        <IoChevronBack />
-                    </span>
-                )}
-                <div
-                    style={{
-                        ...boxBaseStyle,
-                        opacity: current === 0 ? 1 : 0.6,
-                        transform: `translateX(calc(${(0 - current) * 100}% + ${current === 0 ? 0 : -inactiveOffset}px))`,
-                        zIndex: current === 0 ? 2 : 1,
-                        cursor: current === 0 ? "default" : "pointer",
-                    }}
-                >
+                <div style={boxBaseStyle}>
                     <SlideRec />
                 </div>
-                <div
-                    style={{
-                        ...boxBaseStyle,
-                        opacity: current === 1 ? 1 : 0.6,
-                        transform: `translateX(calc(${(1 - current) * 100}% + ${current === 1 ? 0 : inactiveOffset}px))`,
-                        zIndex: current === 1 ? 2 : 1,
-                        cursor: current === 1 ? "default" : "pointer",
-                    }}
-                >
+                <div style={boxBaseStyle}>
                     <SlideEmp />
                 </div>
-                {current === 0 && (
-                    <span
-                        style={{
-                            position: "absolute",
-                            right: 90,
-                            top: "50%",
-                            transform: "translate(60px, -50%)",
-                            fontSize: 44,
-                            color: "#4B2676",
-                            cursor: "pointer",
-                            zIndex: 20,
-                            padding: 6,
-                        }}
-                        onClick={() => handleBoxClick(1)}
-                    >
-                        <IoChevronForward />
-                    </span>
-                )}
             </div>
         </div>
     );
