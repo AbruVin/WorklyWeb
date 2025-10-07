@@ -15,6 +15,17 @@ import BlueHex from "../assets/functionsImgs/hexBlue.svg";
 import IndigoHex from "../assets/functionsImgs/hexIndigo.svg";
 import VioletHex from "../assets/functionsImgs/hexViolet.svg";
 
+// Hook para detectar si es móvil
+function useIsMobile(breakpoint = 768) {
+	const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
+	useEffect(() => {
+		const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, [breakpoint]);
+	return isMobile;
+}
+
 const boxContentStyle = {
     flex: 1,
     display: "flex",
@@ -24,26 +35,31 @@ const boxContentStyle = {
     height: "100%"
 };
 
-const HexIcon = ({ icon, hexImg, alt }) => (
+const HexIcon = ({ icon, hexImg, alt, isMobile }) => (
     <span style={{
-        width: 56,
-        height: 56,
+        width: isMobile ? 40 : 56,
+        height: isMobile ? 40 : 56,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
     }}>
-        <img src={hexImg} alt={alt} style={{ position: "absolute", width: 56, height: 56, left: 0, top: 0, zIndex: 1 }} />
+        <img src={hexImg} alt={alt} style={{ 
+            position: "absolute", 
+            width: isMobile ? 40 : 56, 
+            height: isMobile ? 40 : 56, 
+            left: 0, 
+            top: 0, 
+            zIndex: 1 
+        }} />
         <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {icon}
+            {React.cloneElement(icon, { size: isMobile ? 20 : 32 })}
         </span>
     </span>
 );
 
 //caja reclutador
-const SlideRec = () => {
-    const [activeStep, setActiveStep] = useState(1);
-
+const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
     const stepImages = {
         1: RecFunc1,
         2: RecFunc2,
@@ -59,28 +75,30 @@ const SlideRec = () => {
                 position: "relative",
                 cursor: "pointer",
                 opacity: activeStep === step ? 1 : 0.4,
-                transition: "opacity 0.3s ease"
+                transition: "opacity 0.3s ease",
+                marginBottom: isMobile ? 12 : 0
             }}
         >
-            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} />
+            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
             <div
                 style={{
                     border: `2px solid ${borderColor}`,
                     borderRadius: 16,
-                    padding: "10px 10px 10px 35px",
+                    padding: isMobile ? "8px 8px 8px 24px" : "10px 10px 10px 35px",
                     background: activeStep === step ? "#f3f3ff" : "transparent",
                     textAlign: "left",
-                    marginLeft: -28,
-                    minWidth: 260,
+                    marginLeft: isMobile ? -20 : -28,
+                    minWidth: isMobile ? 180 : 260,
                     transition: "all 0.3s ease"
                 }}
             >
                 <span
                     style={{
                         fontWeight: isBold ? 600 : 500,
-                        fontSize: isBold ? 20 : 18,
+                        fontSize: isMobile ? (isBold ? 16 : 14) : (isBold ? 20 : 18),
                         color: "#2C2C2C",
-                        fontFamily: "Montserrat"
+                        fontFamily: "Montserrat",
+                        lineHeight: isMobile ? 1.2 : 1
                     }}
                 >
                     {label}
@@ -88,6 +106,53 @@ const SlideRec = () => {
             </div>
         </div>
     );
+
+    if (isMobile) {
+        return (
+            <div style={{ ...boxContentStyle, width: "100%", height: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                    <IoBusiness size={20} color="#948AA0" />
+                    <span style={{ color: "#948AA0", fontWeight: 600, fontSize: 14, fontFamily: "Montserrat" }}>
+                        Empresas
+                    </span>
+                </div>
+                
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+                    <Step
+                        step={1}
+                        label="Regístrate"
+                        borderColor="#000B81"
+                        icon={<IoPersonOutline color="#000B81" />}
+                        hexImg={BlueHex}
+                        isBold
+                    />
+                    <Step
+                        step={2}
+                        label="Aplica los filtros"
+                        borderColor="#29158C"
+                        icon={<IoFilterOutline color="#29158C" />}
+                        hexImg={IndigoHex}
+                    />
+                    <Step
+                        step={3}
+                        label="Navega entre los talentos"
+                        borderColor="#4B1C84"
+                        icon={<IoGlobeOutline color="#4B1C84" />}
+                        hexImg={VioletHex}
+                    />
+                </div>
+                
+                <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
+                    <img
+                        src={stepImages[activeStep]}
+                        alt="Empresas"
+                        className="phone-image"
+                        style={{ width: "100%", maxWidth: 900, height: "auto", minHeight: 550 }}
+                    />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -132,8 +197,10 @@ const SlideRec = () => {
                 <img
                     src={stepImages[activeStep]}
                     alt="Empresas"
+                    className="phone-image"
                     style={{
-                        width: 340,
+                        width: 420,
+                        height: "auto",
                         transition: "all 0.3s ease"
                     }}
                 />
@@ -151,7 +218,7 @@ const SlideRec = () => {
                     step={1}
                     label="Regístrate"
                     borderColor="#000B81"
-                    icon={<IoPersonOutline size={32} color="#000B81" />}
+                    icon={<IoPersonOutline color="#000B81" />}
                     hexImg={BlueHex}
                     isBold
                 />
@@ -159,14 +226,14 @@ const SlideRec = () => {
                     step={2}
                     label="Aplica los filtros"
                     borderColor="#29158C"
-                    icon={<IoFilterOutline size={32} color="#29158C" />}
+                    icon={<IoFilterOutline color="#29158C" />}
                     hexImg={IndigoHex}
                 />
                 <Step
                     step={3}
                     label="Navega entre los talentos"
                     borderColor="#4B1C84"
-                    icon={<IoGlobeOutline size={32} color="#4B1C84" />}
+                    icon={<IoGlobeOutline color="#4B1C84" />}
                     hexImg={VioletHex}
                 />
             </div>
@@ -175,9 +242,7 @@ const SlideRec = () => {
 };
 
 //caja empleado
-const SlideEmp = () => {
-    const [activeStep, setActiveStep] = useState(1);
-
+const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
     const stepImages = {
         1: EmpFunc1,
         2: EmpFunc2,
@@ -194,27 +259,29 @@ const SlideEmp = () => {
                 position: "relative",
                 cursor: "pointer",
                 opacity: activeStep === step ? 1 : 0.4,
+                marginBottom: isMobile ? 12 : 0
             }}
         >
-            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} />
+            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
             <div
                 style={{
                     border: `2px solid ${borderColor}`,
                     borderRadius: 16,
-                    padding: "10px 10px 10px 35px",
+                    padding: isMobile ? "8px 8px 8px 24px" : "10px 10px 10px 35px",
                     background: activeStep === step ? "#f3f3ff" : "transparent",
                     textAlign: "left",
-                    marginLeft: -28,
-                    minWidth: 260,
+                    marginLeft: isMobile ? -20 : -28,
+                    minWidth: isMobile ? 180 : 260,
                     transition: "all 0.3s ease"
                 }}
             >
                 <span
                     style={{
                         fontWeight: step === 1 ? 600 : 500,
-                        fontSize: step === 1 ? 20 : 18,
+                        fontSize: isMobile ? (step === 1 ? 16 : 14) : (step === 1 ? 20 : 18),
                         color: "#2C2C2C",
-                        fontFamily: "Montserrat"
+                        fontFamily: "Montserrat",
+                        lineHeight: isMobile ? 1.2 : 1
                     }}
                 >
                     {label}
@@ -222,6 +289,52 @@ const SlideEmp = () => {
             </div>
         </div>
     );
+
+    if (isMobile) {
+        return (
+            <div style={{ ...boxContentStyle, width: "100%", height: "100%" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                    <span style={{ color: "#948AA0", fontWeight: 600, fontSize: 14, fontFamily: "Montserrat" }}>
+                        Empleados
+                    </span>
+                    <IoBriefcase size={20} color="#948AA0" />
+                </div>
+                
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+                    <Step
+                        step={1}
+                        label="Carga tus datos"
+                        borderColor="#000B81"
+                        icon={<IoCloudUploadOutline color="#000B81" />}
+                        hexImg={BlueHex}
+                    />
+                    <Step
+                        step={2}
+                        label="Personaliza tu perfil"
+                        borderColor="#29158C"
+                        icon={<IoPencilOutline color="#29158C" />}
+                        hexImg={IndigoHex}
+                    />
+                    <Step
+                        step={3}
+                        label="Espera las ofertas laborales"
+                        borderColor="#4B1C84"
+                        icon={<IoHourglassOutline color="#4B1C84" />}
+                        hexImg={VioletHex}
+                    />
+                </div>
+                
+                <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
+                    <img
+                        src={stepImages[activeStep]}
+                        alt="Empleados"
+                        className="phone-image"
+                        style={{ width: "100%", maxWidth: 900, height: "auto", minHeight: 550 }}
+                    />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div
@@ -266,8 +379,10 @@ const SlideEmp = () => {
                 <img
                     src={stepImages[activeStep]}
                     alt="Empleados"
+                    className="phone-image"
                     style={{
-                        width: 340,
+                        width: 420,
+                        height: "auto",
                         transition: "all 0.3s ease"
                     }}
                 />
@@ -285,21 +400,21 @@ const SlideEmp = () => {
                     step={1}
                     label="Carga tus datos"
                     borderColor="#000B81"
-                    icon={<IoCloudUploadOutline size={32} color="#000B81" />}
+                    icon={<IoCloudUploadOutline color="#000B81" />}
                     hexImg={BlueHex}
                 />
                 <Step
                     step={2}
                     label="Personaliza tu perfil"
                     borderColor="#29158C"
-                    icon={<IoPencilOutline size={32} color="#29158C" />}
+                    icon={<IoPencilOutline color="#29158C" />}
                     hexImg={IndigoHex}
                 />
                 <Step
                     step={3}
                     label="Espera las ofertas laborales"
                     borderColor="#4B1C84"
-                    icon={<IoHourglassOutline size={32} color="#4B1C84" />}
+                    icon={<IoHourglassOutline color="#4B1C84" />}
                     hexImg={VioletHex}
                 />
             </div>
@@ -308,15 +423,31 @@ const SlideEmp = () => {
 };
 
 export default function Functions() {
+    const isMobile = useIsMobile();
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [activeStepRec, setActiveStepRec] = useState(1);
+    const [activeStepEmp, setActiveStepEmp] = useState(1);
+
+    // Reset active step when changing slides in mobile
+    useEffect(() => {
+        if (isMobile) {
+            if (currentSlide === 0) {
+                setActiveStepRec(1);
+            } else {
+                setActiveStepEmp(1);
+            }
+        }
+    }, [currentSlide, isMobile]);
+
     const boxBaseStyle = {
         background: "#f4f7fb",
         borderRadius: 16,
         boxShadow: "0 4px 16px rgba(0, 0, 0, 0.25)",
-        padding: "24px 32px 32px 32px",
-        minWidth: 480,
-        minHeight: 340,
-        height: 380,
-        width: 700,
+        padding: isMobile ? "28px 24px 32px 24px" : "32px 40px 40px 40px",
+        minWidth: isMobile ? "100%" : 600,
+        minHeight: isMobile ? 520 : 520,
+        height: isMobile ? "auto" : 600,
+        width: isMobile ? "100%" : 900,
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
@@ -324,17 +455,26 @@ export default function Functions() {
         zIndex: 2,
     };
 
+    const slides = [
+        <SlideRec key="rec" isMobile={isMobile} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />,
+        <SlideEmp key="emp" isMobile={isMobile} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
+    ];
+
+    const goNext = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+    const goPrev = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+
     return (
         <div
-            style={{
-                width: "100vw",
-                minHeight: "100vh",
+			id="funciones"
+			style={{
+                width: "100%",
+                minHeight: isMobile ? "auto" : "100vh",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
                 alignItems: "center",
                 background: "#f4f7fb",
-                padding: "48px 0",
+                padding: isMobile ? "40px 20px" : "48px 0",
                 position: "relative",
                 overflow: "hidden",
             }}
@@ -342,33 +482,114 @@ export default function Functions() {
             <h2 style={{
                 textAlign: "center",
                 fontWeight: 700,
-                fontSize: 36,
-                marginBottom: 48,
+                fontSize: isMobile ? 28 : 36,
+                marginBottom: isMobile ? 32 : 48,
                 fontFamily: 'Montserrat',
-                color: "#232323"
+                color: "#232323",
+                lineHeight: isMobile ? 1.2 : 1
             }}>
                 <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>¿Cómo </span>
                 <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>funciona</span>
                 <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>
             </h2>
-            <div
-                style={{
-                    width: 1500,
-                    maxWidth: "98vw",
-                    height: 440,
+            
+            {isMobile ? (
+                // Vista móvil con carousel
+                <div style={{ 
+                    width: "100%", 
+                    position: "relative",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 32,
-                }}
-            >
-                <div style={boxBaseStyle}>
-                    <SlideRec />
+                    flexDirection: "column",
+                    alignItems: "center"
+                }}>
+                    <div style={boxBaseStyle}>
+                        {slides[currentSlide]}
+                    </div>
+                    
+                    {/* Navigation arrows */}
+                    <div style={{ 
+                        display: "flex", 
+                        justifyContent: "center", 
+                        gap: 20, 
+                        marginTop: 20,
+                        alignItems: "center"
+                    }}>
+                        <button
+                            onClick={goPrev}
+                            style={{
+                                background: "#3B2580",
+                                border: "none",
+                                borderRadius: "50%",
+                                width: 40,
+                                height: 40,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer",
+                                color: "#fff"
+                            }}
+                        >
+                            <IoChevronBack size={20} />
+                        </button>
+                        
+                        {/* Dots indicator */}
+                        <div style={{ display: "flex", gap: 8 }}>
+                            {slides.map((_, idx) => (
+                                <span
+                                    key={idx}
+                                    style={{
+                                        width: 8,
+                                        height: 8,
+                                        borderRadius: "50%",
+                                        background: idx === currentSlide ? "#3B2580" : "#d1d1e0",
+                                        display: "inline-block",
+                                        cursor: "pointer"
+                                    }}
+                                    onClick={() => setCurrentSlide(idx)}
+                                />
+                            ))}
+                        </div>
+                        
+                        <button
+                            onClick={goNext}
+                            style={{
+                                background: "#3B2580",
+                                border: "none",
+                                borderRadius: "50%",
+                                width: 40,
+                                height: 40,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                cursor: "pointer",
+                                color: "#fff"
+                            }}
+                        >
+                            <IoChevronForward size={20} />
+                        </button>
+                    </div>
                 </div>
-                <div style={boxBaseStyle}>
-                    <SlideEmp />
+            ) : (
+                // Vista desktop con dos cajas lado a lado
+                <div
+                    style={{
+                        width: 1800,
+                        maxWidth: "98%",
+                        height: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 40,
+                    }}
+                >
+                    <div style={{...boxBaseStyle, minHeight: 520, height: 600}}>
+                        <SlideRec isMobile={false} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />
+                    </div>
+                    <div style={{...boxBaseStyle, minHeight: 520, height: 600}}>
+                        <SlideEmp isMobile={false} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

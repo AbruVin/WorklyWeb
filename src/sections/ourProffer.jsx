@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   IoBusiness, IoBriefcase, IoTimeOutline, IoTrophyOutline, IoSparklesOutline, 
   IoDiamondOutline, IoRocketOutline, IoBodyOutline 
 } from "react-icons/io5";
 import "../App.css";
+
+// Hook para detectar si es móvil
+function useIsMobile(breakpoint = 768) {
+	const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
+	useEffect(() => {
+		const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, [breakpoint]);
+	return isMobile;
+}
 
 const empresaFeatures = [
   {
@@ -37,76 +48,103 @@ const empleadoFeatures = [
 
 export default function OurProffer() {
   const [selected, setSelected] = useState("empresa");
-
+  const isMobile = useIsMobile();
+  
   const features = selected === "empresa" ? empresaFeatures : empleadoFeatures;
 
   return (
-  <div style={{ background: "#f4f7fb", minHeight: "100vh", width: "100vw", maxWidth: "100vw", padding: "32px 0", boxSizing: "border-box" }}>
+  <div id="solucion" style={{ 
+    background: "#f4f7fb", 
+    minHeight: isMobile ? "auto" : "auto", 
+    width: "100%", 
+    padding: isMobile ? "20px 16px" : "30px 0", 
+    boxSizing: "border-box" 
+  }}>
       <h2 style={{
         textAlign: "center",
         fontWeight: 700,
-        fontSize: 36,
-        marginBottom: 32,
+        fontSize: isMobile ? 28 : 36,
+        marginBottom: isMobile ? 20 : 28,
         fontFamily: 'Montserrat',
-        color: "#232323"
+        color: "#232323",
+        padding: isMobile ? "0 16px" : 0,
+        lineHeight: isMobile ? 1.2 : 1
       }}>
         <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>¿Cómo lo </span>
         <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>solucionamos</span>
         <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>
       </h2>
-      <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: isMobile ? 20 : 28 }}>
         <div style={{
-          background: "#fff",
-          borderRadius: 16,
-          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.25)",
+          background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
+          borderRadius: 20,
+          boxShadow: "0 8px 32px rgba(59, 37, 128, 0.15)",
           display: "flex",
-          padding: 6,
-          gap: 0,
-          minWidth: 360,
+          padding: 8,
+          gap: 4,
+          minWidth: isMobile ? 320 : 400,
+          width: isMobile ? "95%" : "auto",
+          maxWidth: isMobile ? 450 : "none",
+          border: "2px solid rgba(59, 37, 128, 0.1)"
         }}>
           <button
             onClick={() => setSelected("empresa")}
+            className="hover-glow"
             style={{
               flex: 1,
               display: "flex",
               alignItems: "center",
-              gap: 8,
+              gap: isMobile ? 6 : 10,
               justifyContent: "center",
-              fontWeight: 600,
+              fontWeight: 700,
               fontFamily: 'Montserrat',
-              fontSize: 18,
-              background: selected === "empresa" ? "#3B2580" : "#fff",
-              color: selected === "empresa" ? "#fff" : "#948AA0",
-              border: "none",
-              borderRadius: 10,
-              padding: "12px 24px",
+              fontSize: isMobile ? 15 : 19,
+              background: selected === "empresa" 
+                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)" 
+                : "transparent",
+              color: selected === "empresa" ? "#fff" : "#3B2580",
+              border: selected === "empresa" ? "none" : "2px solid transparent",
+              borderRadius: 14,
+              padding: isMobile ? "14px 16px" : "16px 28px",
               cursor: "pointer",
-              transition: "background 0.2s, color 0.2s"
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              boxShadow: selected === "empresa" 
+                ? "0 4px 20px rgba(59, 37, 128, 0.4)" 
+                : "none",
+              transform: selected === "empresa" ? "translateY(-1px)" : "none"
             }}
           >
-            <IoBusiness size={24} style={{ marginRight: 6 }} /> Empresas
+            <IoBusiness size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} /> 
+            Empresas
           </button>
           <button
             onClick={() => setSelected("empleado")}
+            className="hover-glow"
             style={{
               flex: 1,
               display: "flex",
               alignItems: "center",
-              gap: 8,
+              gap: isMobile ? 6 : 10,
               justifyContent: "center",
-              fontWeight: 600,
+              fontWeight: 700,
               fontFamily: 'Montserrat',
-              fontSize: 18,
-              background: selected === "empleado" ? "#3B2580" : "#fff",
-              color: selected === "empleado" ? "#fff" : "#948AA0",
-              border: "none",
-              borderRadius: 10,
-              padding: "12px 24px",
+              fontSize: isMobile ? 15 : 19,
+              background: selected === "empleado" 
+                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)" 
+                : "transparent",
+              color: selected === "empleado" ? "#fff" : "#3B2580",
+              border: selected === "empleado" ? "none" : "2px solid transparent",
+              borderRadius: 14,
+              padding: isMobile ? "14px 16px" : "16px 28px",
               cursor: "pointer",
-              transition: "background 0.2s, color 0.2s"
+              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              boxShadow: selected === "empleado" 
+                ? "0 4px 20px rgba(59, 37, 128, 0.4)" 
+                : "none",
+              transform: selected === "empleado" ? "translateY(-1px)" : "none"
             }}
           >
-            <IoBriefcase size={24} style={{ marginRight: 6 }} /> Empleados
+            Profesionales
           </button>
         </div>
       </div>
@@ -119,51 +157,67 @@ export default function OurProffer() {
         padding: 0,
       }}>
         <div style={{
-          display: "flex",
-          gap: 32,
-          background: "#fff",
-          borderRadius: 16,
-          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.25)",
-          padding: 32,
+          display: isMobile ? "flex" : "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: isMobile ? 20 : 40,
+          background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
+          borderRadius: 20,
+          boxShadow: "0 12px 48px rgba(59, 37, 128, 0.15)",
+          padding: isMobile ? 24 : 48,
           width: "100%",
-          maxWidth: 1100,
+          maxWidth: isMobile ? "100%" : 1400,
+          minHeight: isMobile ? "auto" : 400,
           justifyContent: "center",
-          boxSizing: "border-box"
+          boxSizing: "border-box",
+          border: "1px solid rgba(59, 37, 128, 0.1)"
         }}>
           {features.map((f, i) => {
             // Extraer color del icono original
             const iconColor = f.icon.props.color || "#0B1175";
             return (
               <div key={i} style={{
-                background: "#f4f7fb",
-                borderRadius: 12,
-                padding: "32px 24px 24px 24px",
-                minWidth: 180,
+                background: "linear-gradient(135deg, #f4f7fb 0%, #e8ebf0 100%)",
+                borderRadius: 16,
+                padding: isMobile ? "28px 20px 24px 20px" : "40px 32px 32px 32px",
+                minWidth: isMobile ? "100%" : 220,
                 width: "100%",
-                maxWidth: 260,
+                maxWidth: isMobile ? "100%" : 320,
+                minHeight: isMobile ? 140 : 280,
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                boxShadow: "0 1px 6px rgba(0, 0, 0, 0.25)"
+                flexDirection: isMobile ? "row" : "column",
+                alignItems: isMobile ? "center" : "center",
+                justifyContent: isMobile ? "flex-start" : "center",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
+                gap: isMobile ? 20 : 0,
+                border: "1px solid rgba(255, 255, 255, 0.5)",
+                position: "relative",
+                overflow: "hidden"
               }}>
                 <div style={{
-                  background: iconColor,
+                  background: `linear-gradient(135deg, ${iconColor} 0%, ${iconColor}dd 100%)`,
                   borderRadius: "50%",
-                  width: 72,
-                  height: 72,
+                  width: isMobile ? 64 : 88,
+                  height: isMobile ? 64 : 88,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  marginBottom: 16
+                  marginBottom: isMobile ? 0 : 20,
+                  flexShrink: 0,
+                  boxShadow: `0 4px 20px ${iconColor}40`
                 }}>
-                  {React.cloneElement(f.icon, { color: "#fff" })}
+                  {React.cloneElement(f.icon, { 
+                    color: "#fff", 
+                    size: isMobile ? 28 : 36 
+                  })}
                 </div>
                 <div style={{
                   fontFamily: 'Montserrat',
-                  fontWeight: 500,
-                  fontSize: 18,
+                  fontWeight: 600,
+                  fontSize: isMobile ? 17 : 20,
                   color: "#232323",
-                  textAlign: "center"
+                  textAlign: isMobile ? "left" : "center",
+                  flex: isMobile ? 1 : "none",
+                  lineHeight: 1.3
                 }}>{f.title}</div>
               </div>
             );

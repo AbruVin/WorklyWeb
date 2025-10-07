@@ -32,7 +32,7 @@ export default function Home() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrent((prev) => (prev + 1) % images.length);
-		}, 4000); // más lento
+		}, 4000);
 		return () => clearInterval(interval);
 	}, [images.length]);
 
@@ -41,15 +41,36 @@ export default function Home() {
 	const goNext = () => setCurrent((prev) => (prev + 1) % images.length);
 
 	return (
-		<div style={{ background: "#f4f7fb", width: "100vw", height: "80vh", boxSizing: "border-box", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+		<div id="home" className="professional-fade" style={{ 
+			background: "#f4f7fb", 
+			width: "100%", 
+			height: isMobile ? "auto" : "75vh", 
+			maxHeight: isMobile ? "none" : "none",
+			minHeight: isMobile ? 420 : 480,
+			boxSizing: "border-box", 
+			overflow: "hidden", 
+			display: "flex", 
+			flexDirection: "column",
+			marginTop: 56, // Height of fixed header
+			paddingBottom: isMobile ? 30 : 0
+		}}>
 			{/* Carrousel */}
-			<div style={{ width: "100vw", height: "80vh", maxHeight: 520, minHeight: 320, position: "relative", overflow: "hidden", margin: "0 auto", zIndex: 2 }}>
+			<div style={{ 
+				width: "100%", 
+				height: isMobile ? "65vh" : "80vh", 
+				maxHeight: isMobile ? 500 : 520, 
+				minHeight: isMobile ? 400 : 320, 
+				position: "relative", 
+				overflow: "hidden",
+				zIndex: 2 
+			}}>
 				{/* Flecha izquierda */}
 				<button onClick={goPrev} aria-label="Anterior"
+					className="hover-scale"
 					style={{
 						position: "absolute",
 						top: "50%",
-						left: 16,
+						left: isMobile ? 8 : 16,
 						transform: "translateY(-50%)",
 						background: "transparent",
 						border: "none",
@@ -61,7 +82,7 @@ export default function Home() {
 				>
 					<IoChevronBack
 						style={{
-							fontSize: 32,
+							fontSize: isMobile ? 28 : 32,
 							color: "#fff",
 							filter: "drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.8))",
 							}} />
@@ -71,10 +92,11 @@ export default function Home() {
 				<button
 					onClick={goNext}
 					aria-label="Siguiente"
+					className="hover-scale"
 					style={{
 						position: "absolute",
 						top: "50%",
-						right: 16,
+						right: isMobile ? 8 : 16,
 						transform: "translateY(-50%)",
 						background: "transparent",
 						border: "none",
@@ -86,7 +108,7 @@ export default function Home() {
 				>
 					<IoChevronForward
 						style={{
-							fontSize: 32,
+							fontSize: isMobile ? 28 : 32,
 							color: "#fff",
 							filter: "drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.8))",
 						}}
@@ -97,8 +119,8 @@ export default function Home() {
 					style={{
 						display: "flex",
 						transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
-						transform: `translateX(-${current * 100}vw)`,
-						width: `${images.length * 100}vw`,
+						transform: `translateX(-${current * 100}%)`,
+						width: `${images.length * 100}%`,
 						height: "100%",
 					}}
 				>
@@ -107,27 +129,39 @@ export default function Home() {
 							key={idx}
 							src={img}
 							alt={`slide ${idx + 1}`}
+							className="phone-image"
 							style={{
-								width: "100vw",
-								height: "80vh",
-								maxHeight: 520,
-								minHeight: 320,
+								width: "100%",
+								height: isMobile ? "60vh" : "75vh",
+								maxHeight: isMobile ? 480 : 500,
+								minHeight: isMobile ? 380 : 300,
 								objectFit: "cover",
 								flexShrink: 0,
-								flexGrow: 0,
+								flexGrow: 0
 							}}
 						/>
 					))}
 				</div>
 
 				{/* Dots */}
-				<div style={{ position: "absolute", bottom: 24, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 12, zIndex: 3 }}>
+				<div className="animate-fade-in-up" style={{ 
+					position: "absolute", 
+					bottom: isMobile ? 16 : 24, 
+					left: 0, 
+					right: 0, 
+					display: "flex", 
+					justifyContent: "center", 
+					gap: isMobile ? 8 : 12, 
+					zIndex: 3,
+					animationDelay: "0.5s"
+				}}>
 					{images.map((_, idx) => (
 						<span
 							key={idx}
+							className="hover-scale"
 							style={{
-								width: 8,
-								height: 8,
+								width: isMobile ? 6 : 8,
+								height: isMobile ? 6 : 8,
 								borderRadius: "50%",
 								background: idx === current ? "#3B2580" : "#d1d1e0",
 								display: "inline-block",
@@ -141,8 +175,25 @@ export default function Home() {
 			</div>
 
 			{/* Down arrow */}
-			<div style={{ display: "flex", justifyContent: "center", marginTop: 20, position: "relative", zIndex: 4 }}>
-				<span style={{ display: "inline-block", color: "#3B2580", fontSize: 24 }}>
+			<div className="animate-fade-in-up bounce" style={{ 
+				display: "flex", 
+				justifyContent: "center", 
+				marginTop: isMobile ? 12 : 20, 
+				position: "relative", 
+				zIndex: 4,
+				animationDelay: "1s"
+			}}>
+				<span className="hover-scale" style={{ 
+					display: "inline-block", 
+					color: "#3B2580", 
+					fontSize: isMobile ? 20 : 24,
+					cursor: "pointer"
+				}}
+				onClick={() => {
+					document.getElementById('problematic')?.scrollIntoView({ 
+						behavior: 'smooth' 
+					});
+				}}>
 					<IoChevronDown />
 				</span>
 			</div>
