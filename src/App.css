@@ -40,3 +40,157 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Animación para las imágenes de función */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px) rotate(5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.05);
+  }
+  80% {
+    transform: translateY(5px) scale(0.98);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.phone-image {
+  animation: fadeInScale 0.6s ease-out;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.phone-image-slide {
+  animation: slideInFromRight 0.7s ease-out;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.phone-image-slide-out {
+  animation: slideOutLeft 0.6s ease-out;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.phone-image-bounce {
+  animation: bounceInUp 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animaciones para las cards de features */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-title {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.feature-card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+.feature-card:nth-child(5) { animation-delay: 0.5s; }
+.feature-card:nth-child(6) { animation-delay: 0.6s; }
+

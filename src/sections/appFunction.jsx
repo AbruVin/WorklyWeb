@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     IoChevronForward, IoChevronBack,
     IoBusiness, IoBriefcase,
     IoPersonOutline, IoFilterOutline, IoGlobeOutline,
     IoCloudUploadOutline, IoPencilOutline, IoHourglassOutline
 } from "react-icons/io5";
-import RecFunc1 from "../assets/functionsImgs/imgRegisterRec.svg";
-import RecFunc2 from "../assets/functionsImgs/imgFiltersRec.svg";
-import RecFunc3 from "../assets/functionsImgs/imgNavRec.svg";
-import EmpFunc1 from "../assets/functionsImgs/imgRegisterEmp.svg";
-import EmpFunc2 from "../assets/functionsImgs/imgEditEmp.svg";
-import EmpFunc3 from "../assets/functionsImgs/imgOffersEmp.svg";
+import RecFunc1 from "../assets/functionsImgs/RegisterRec.svg";
+import RecFunc2 from "../assets/functionsImgs/FiltersRec.svg";
+import RecFunc3 from "../assets/functionsImgs/NavRec.svg";
+import EmpFunc1 from "../assets/functionsImgs/RegisterEmp.svg";
+import EmpFunc2 from "../assets/functionsImgs/ProfileEmp.svg";
+import EmpFunc3 from "../assets/functionsImgs/NotiMsgEmp.svg";
 import BlueHex from "../assets/functionsImgs/hexBlue.svg";
 import IndigoHex from "../assets/functionsImgs/hexIndigo.svg";
 import VioletHex from "../assets/functionsImgs/hexViolet.svg";
@@ -64,6 +64,24 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
         1: RecFunc1,
         2: RecFunc2,
         3: RecFunc3
+    };
+
+    // Auto-play: cambiar pasos automáticamente cada 4 segundos
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActiveStep(prevStep => {
+                if (prevStep === 3) return 1; // Volver al inicio
+                return prevStep + 1;
+            });
+        }, 4000); // Cambiar cada 4 segundos
+
+        return () => clearInterval(timer); // Limpiar el intervalo
+    }, [setActiveStep]);
+
+    // Función para determinar la clase de animación
+    const getAnimationClass = () => {
+        // Todas las animaciones usan fadeInScale
+        return "phone-image";
     };
 
     const Step = ({ step, label, borderColor, icon, hexImg, isBold }) => (
@@ -144,10 +162,16 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                 
                 <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
                     <img
+                        key={activeStep}
                         src={stepImages[activeStep]}
                         alt="Empresas"
-                        className="phone-image"
-                        style={{ width: "100%", maxWidth: 900, height: "auto", minHeight: 550 }}
+                        className={getAnimationClass()}
+                        style={{ 
+                            width: "100%", 
+                            maxWidth: "100%",
+                            height: "auto",
+                            imageRendering: "auto"
+                        }}
                     />
                 </div>
             </div>
@@ -171,7 +195,8 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                     flexDirection: "column",
                     alignItems: "flex-start",
                     height: "100%",
-                    minWidth: 180
+                    flex: "0 0 auto",
+                    maxWidth: "65%"
                 }}
             >
                 <div
@@ -195,13 +220,16 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                     </span>
                 </div>
                 <img
+                    key={activeStep}
                     src={stepImages[activeStep]}
                     alt="Empresas"
-                    className="phone-image"
+                    className={getAnimationClass()}
                     style={{
-                        width: 420,
+                        width: "100%",
+                        maxWidth: 600,
                         height: "auto",
-                        transition: "all 0.3s ease"
+                        transition: "all 0.3s ease",
+                        imageRendering: "auto"
                     }}
                 />
             </div>
@@ -247,6 +275,24 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
         1: EmpFunc1,
         2: EmpFunc2,
         3: EmpFunc3
+    };
+
+    // Auto-play: cambiar pasos automáticamente cada 4 segundos
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActiveStep(prevStep => {
+                if (prevStep === 3) return 1; // Volver al inicio
+                return prevStep + 1;
+            });
+        }, 4000); // Cambiar cada 4 segundos
+
+        return () => clearInterval(timer); // Limpiar el intervalo
+    }, [setActiveStep]);
+
+    // Función para determinar la clase de animación
+    const getAnimationClass = () => {
+        // Todas las animaciones usan fadeInScale
+        return "phone-image";
     };
 
     const Step = ({ step, label, borderColor, icon, hexImg }) => (
@@ -326,10 +372,16 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                 
                 <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
                     <img
+                        key={activeStep}
                         src={stepImages[activeStep]}
                         alt="Empleados"
-                        className="phone-image"
-                        style={{ width: "100%", maxWidth: 900, height: "auto", minHeight: 550 }}
+                        className={getAnimationClass()}
+                        style={{ 
+                            width: "100%", 
+                            maxWidth: "100%",
+                            height: "auto",
+                            imageRendering: "auto"
+                        }}
                     />
                 </div>
             </div>
@@ -353,7 +405,8 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                     flexDirection: "column",
                     alignItems: "flex-start",
                     height: "100%",
-                    minWidth: 180
+                    flex: "0 0 auto",
+                    maxWidth: "65%"
                 }}
             >
                 <div
@@ -377,13 +430,16 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                     <IoBriefcase size={24} color="#948AA0" />
                 </div>
                 <img
+                    key={activeStep}
                     src={stepImages[activeStep]}
                     alt="Empleados"
-                    className="phone-image"
+                    className={getAnimationClass()}
                     style={{
-                        width: 420,
+                        width: "100%",
+                        maxWidth: 600,
                         height: "auto",
-                        transition: "all 0.3s ease"
+                        transition: "all 0.3s ease",
+                        imageRendering: "auto"
                     }}
                 />
             </div>
@@ -427,6 +483,32 @@ export default function Functions() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [activeStepRec, setActiveStepRec] = useState(1);
     const [activeStepEmp, setActiveStepEmp] = useState(1);
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef(null);
+
+    // Intersection Observer para detectar cuando la sección es visible
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) {
+                observer.unobserve(sectionRef.current);
+            }
+        };
+    }, []);
 
     // Reset active step when changing slides in mobile
     useEffect(() => {
@@ -466,6 +548,7 @@ export default function Functions() {
     return (
         <div
 			id="funciones"
+			ref={sectionRef}
 			style={{
                 width: "100%",
                 minHeight: isMobile ? "auto" : "100vh",
@@ -479,15 +562,18 @@ export default function Functions() {
                 overflow: "hidden",
             }}
         >
-            <h2 style={{
-                textAlign: "center",
-                fontWeight: 700,
-                fontSize: isMobile ? 28 : 36,
-                marginBottom: isMobile ? 32 : 48,
-                fontFamily: 'Montserrat',
-                color: "#232323",
-                lineHeight: isMobile ? 1.2 : 1
-            }}>
+            <h2 
+				className={isVisible ? 'feature-title' : ''}
+				style={{
+					textAlign: "center",
+					fontWeight: 700,
+					fontSize: isMobile ? 28 : 36,
+					marginBottom: isMobile ? 32 : 48,
+					fontFamily: 'Montserrat',
+					color: "#232323",
+					lineHeight: isMobile ? 1.2 : 1
+				}}
+			>
                 <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>¿Cómo </span>
                 <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>funciona</span>
                 <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>

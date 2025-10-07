@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
 	IoShieldCheckmark, IoFlash, IoHeart, IoTrophy, 
 	IoRocket, IoStar, IoDiamond, IoCheckmark 
@@ -56,16 +56,48 @@ const features = [
 
 export default function FeaturesSection() {
 	const isMobile = useIsMobile();
+	const [isVisible, setIsVisible] = useState(false);
+	const sectionRef = useRef(null);
+
+	// Intersection Observer para detectar cuando la sección es visible
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						setIsVisible(true);
+					}
+				});
+			},
+			{ threshold: 0.1 } // Activar cuando el 10% de la sección sea visible
+		);
+
+		if (sectionRef.current) {
+			observer.observe(sectionRef.current);
+		}
+
+		return () => {
+			if (sectionRef.current) {
+				observer.unobserve(sectionRef.current);
+			}
+		};
+	}, []);
 
 	return (
-		<div id="caracteristicas" style={{
+		<div id="caracteristicas" ref={sectionRef} style={{
 			background: "#fff",
 			padding: isMobile ? "40px 20px" : "60px 40px",
 			width: "100%"
 		}}>
 			<div style={{ maxWidth: 1200, margin: "0 auto" }}>
 				{/* Header */}
-				<div style={{ textAlign: "center", marginBottom: isMobile ? 30 : 50 }}>
+				<div 
+					className={isVisible ? 'feature-title' : ''}
+					style={{ 
+						textAlign: "center", 
+						marginBottom: isMobile ? 30 : 50
+					}}
+				>
 					<h2 style={{
 						fontSize: isMobile ? 26 : 32,
 						fontWeight: 700,
@@ -96,13 +128,14 @@ export default function FeaturesSection() {
 					{features.map((feature, index) => (
 						<div
 							key={index}
-							className="hover-lift"
+							className={`hover-lift ${isVisible ? 'feature-card' : ''}`}
 							style={{
 								background: "#f8f9fc",
 								borderRadius: 16,
 								padding: isMobile ? 20 : 24,
 								border: "1px solid #e6eaf2",
-								transition: "all 0.3s ease"
+								transition: "all 0.3s ease",
+								opacity: isVisible ? 1 : 0
 							}}
 						>
 							<div style={{

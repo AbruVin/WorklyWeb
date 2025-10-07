@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { 
   IoBusiness, IoBriefcase, IoTimeOutline, IoTrophyOutline, IoSparklesOutline, 
   IoDiamondOutline, IoRocketOutline, IoBodyOutline 
@@ -48,28 +48,69 @@ const empleadoFeatures = [
 
 export default function OurProffer() {
   const [selected, setSelected] = useState("empresa");
+  const [isAnimating, setIsAnimating] = useState(false);
   const isMobile = useIsMobile();
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Intersection Observer para detectar cuando la sección es visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
   
   const features = selected === "empresa" ? empresaFeatures : empleadoFeatures;
 
+  // Función para manejar el cambio con animación
+  const handleSelectionChange = (newSelection) => {
+    if (newSelection !== selected) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setSelected(newSelection);
+        setIsAnimating(false);
+      }, 150); // Pequeño delay para la transición
+    }
+  };
+
   return (
-  <div id="solucion" style={{ 
+  <div id="solucion" ref={sectionRef} style={{ 
     background: "#f4f7fb", 
     minHeight: isMobile ? "auto" : "auto", 
     width: "100%", 
     padding: isMobile ? "20px 16px" : "30px 0", 
     boxSizing: "border-box" 
   }}>
-      <h2 style={{
-        textAlign: "center",
-        fontWeight: 700,
-        fontSize: isMobile ? 28 : 36,
-        marginBottom: isMobile ? 20 : 28,
-        fontFamily: 'Montserrat',
-        color: "#232323",
-        padding: isMobile ? "0 16px" : 0,
-        lineHeight: isMobile ? 1.2 : 1
-      }}>
+      <h2 
+        className={isVisible ? 'feature-title' : ''}
+        style={{
+          textAlign: "center",
+          fontWeight: 700,
+          fontSize: isMobile ? 28 : 36,
+          marginBottom: isMobile ? 20 : 28,
+          fontFamily: 'Montserrat',
+          color: "#232323",
+          padding: isMobile ? "0 16px" : 0,
+          lineHeight: isMobile ? 1.2 : 1
+        }}
+      >
         <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>¿Cómo lo </span>
         <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>solucionamos</span>
         <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>
@@ -88,7 +129,7 @@ export default function OurProffer() {
           border: "2px solid rgba(59, 37, 128, 0.1)"
         }}>
           <button
-            onClick={() => setSelected("empresa")}
+            onClick={() => handleSelectionChange("empresa")}
             className="hover-glow"
             style={{
               flex: 1,
@@ -118,7 +159,7 @@ export default function OurProffer() {
             Empresas
           </button>
           <button
-            onClick={() => setSelected("empleado")}
+            onClick={() => handleSelectionChange("empleado")}
             className="hover-glow"
             style={{
               flex: 1,
@@ -175,24 +216,33 @@ export default function OurProffer() {
             // Extraer color del icono original
             const iconColor = f.icon.props.color || "#0B1175";
             return (
-              <div key={i} style={{
-                background: "linear-gradient(135deg, #f4f7fb 0%, #e8ebf0 100%)",
-                borderRadius: 16,
-                padding: isMobile ? "28px 20px 24px 20px" : "40px 32px 32px 32px",
-                minWidth: isMobile ? "100%" : 220,
-                width: "100%",
-                maxWidth: isMobile ? "100%" : 320,
-                minHeight: isMobile ? 140 : 280,
-                display: "flex",
-                flexDirection: isMobile ? "row" : "column",
-                alignItems: isMobile ? "center" : "center",
-                justifyContent: isMobile ? "flex-start" : "center",
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
-                gap: isMobile ? 20 : 0,
-                border: "1px solid rgba(255, 255, 255, 0.5)",
-                position: "relative",
-                overflow: "hidden"
-              }}>
+              <div 
+                key={`${selected}-${i}`} 
+                style={{
+                  background: "linear-gradient(135deg, #f4f7fb 0%, #e8ebf0 100%)",
+                  borderRadius: 16,
+                  padding: isMobile ? "28px 20px 24px 20px" : "40px 32px 32px 32px",
+                  minWidth: isMobile ? "100%" : 220,
+                  width: "100%",
+                  maxWidth: isMobile ? "100%" : 320,
+                  minHeight: isMobile ? 140 : 280,
+                  display: "flex",
+                  flexDirection: isMobile ? "row" : "column",
+                  alignItems: isMobile ? "center" : "center",
+                  justifyContent: isMobile ? "flex-start" : "center",
+                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
+                  gap: isMobile ? 20 : 0,
+                  border: "1px solid rgba(255, 255, 255, 0.5)",
+                  position: "relative",
+                  overflow: "hidden",
+                  opacity: isAnimating ? 0 : 1,
+                  transform: isAnimating ? "translateY(20px) scale(0.95)" : "translateY(0) scale(1)",
+                  transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  animationDelay: `${i * 0.1}s`,
+                  animation: isAnimating ? "none" : `slideInUp 0.6s ease-out ${i * 0.1}s both`
+                }}
+                className={!isAnimating ? "animate-on-scroll" : ""}
+              >
                 <div style={{
                   background: `linear-gradient(135deg, ${iconColor} 0%, ${iconColor}dd 100%)`,
                   borderRadius: "50%",

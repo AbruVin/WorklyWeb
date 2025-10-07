@@ -51,8 +51,9 @@ export default function Home() {
 			overflow: "hidden", 
 			display: "flex", 
 			flexDirection: "column",
-			marginTop: 56, // Height of fixed header
-			paddingBottom: isMobile ? 30 : 0
+			paddingTop: 0,
+			paddingBottom: isMobile ? 30 : 0,
+			marginTop: isMobile ? "60px" : "70px"
 		}}>
 			{/* Carrousel */}
 			<div style={{ 

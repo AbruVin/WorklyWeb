@@ -16,17 +16,17 @@ const faqData = [
 	{
 		id: 1,
 		question: "¿Cómo funciona Workly?",
-		answer: "Workly conecta empresas con profesionales de manera inteligente. Las empresas publican ofertas y nuestro algoritmo encuentra los candidatos más compatibles. Los profesionales pueden aplicar directamente o ser descubiertos por reclutadores."
+		answer: "Workly revoluciona la forma en que empresas y profesionales se conectan. A través de una experiencia dinámica tipo \"swipe\", los reclutadores pueden descubrir candidatos de manera ágil e intuitiva. Además, la primera entrevista puede realizarse directamente desde la app mediante videollamada, acelerando el proceso de contratación y optimizando el tiempo de ambas partes."
 	},
 	{
 		id: 2,
-		question: "¿Es gratis para los profesionales?",
-		answer: "Sí, completamente gratis. Los profesionales pueden crear su perfil, aplicar a ofertas y ser contactados por empresas sin ningún costo. Solo cobramos a las empresas por nuestros servicios de reclutamiento."
+		question: "¿Es gratuito para los profesionales?",
+		answer: "Workly es completamente gratuito para los profesionales. Pueden crear su perfil, aplicar a ofertas y ser descubiertos por empresas sin ningún costo. En el futuro, también podrán acceder a planes premium opcionales con beneficios exclusivos diseñados para potenciar su visibilidad y oportunidades laborales."
 	},
 	{
 		id: 3,
 		question: "¿Qué tipo de trabajos puedo encontrar?",
-		answer: "Desde trabajos remotos hasta presenciales, tiempo completo y medio tiempo. Cubrimos todas las industrias: tecnología, marketing, diseño, finanzas, ventas, recursos humanos y muchas más."
+		answer: "Desde trabajos remotos hasta presenciales, tiempo completo y medio tiempo."
 	},
 	{
 		id: 4,

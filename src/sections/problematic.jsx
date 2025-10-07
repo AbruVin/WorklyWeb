@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoWarningOutline } from "react-icons/io5";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 import RecProblems from "../assets/problematicImgs/stadisticsTimeImg.svg";
@@ -26,95 +26,98 @@ const boxContentStyle = {
 
 //caja reclutador
 const SlideRec = ({ isMobile }) => (
-    <div className="animate-fade-in-left" style={boxContentStyle}>
-        <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "flex-start" }}>
-            <span className="bounce" style={{ fontSize: isMobile ? 22 : 26, fontWeight: 700, marginRight: 10, color: "#4B2676" }}><IoWarningOutline /></span>
-            <span style={{ 
-				fontWeight: 700, 
-				fontSize: isMobile ? 18 : 26, 
-				fontFamily: "'Montserrat', sans-serif", 
-				color: "#2C2C2C",
-				lineHeight: isMobile ? 1.3 : 1
-			}}>
-                Tiempo de reclutamiento
-            </span>
-        </div>
-        <div style={{ width: "100%" }}>
-            <hr style={{ width: "100%", border: "none", borderTop: "2px solid #dbe2ea", margin: "10px 0 18px 0" }} />
-        </div>
-        <div style={{ 
-			flex: 1, 
-			display: "flex", 
-			flexDirection: "column", 
-			alignItems: "center", 
-			justifyContent: "center", 
-			width: "100%", 
-			minHeight: isMobile ? 200 : 210,
-			position: "relative"
-		}}>
-            <img
-                src={RecProblems}
-                alt="Problemas de reclutadores"
-                className="sharp-image hover-scale"
-                style={{ 
-					width: "100%", 
-					maxWidth: isMobile ? 400 : 700, 
-					display: "block",
-					height: "auto",
-					minHeight: isMobile ? 150 : "auto"
-				}}
-            />
-            <div style={{
-                fontWeight: 700,
-                fontSize: isMobile ? 18 : 24,
-                marginTop: isMobile ? 16 : 20,
-                color: "#2C2C2C",
-                fontFamily: "'Montserrat', sans-serif"
-            }}>
-                30 minutos - 2 horas
-            </div>
+    <div style={{
+        ...boxContentStyle,
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        borderRadius: "20px",
+        padding: isMobile ? "40px 24px" : "60px 50px",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+        border: "1px solid #e2e8f0",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "32px",
+        minHeight: isMobile ? "auto" : 550
+    }}>
+        <span style={{ 
+            fontWeight: 700, 
+            fontSize: isMobile ? 22 : 32, 
+            fontFamily: "'Montserrat', sans-serif", 
+            color: "#2C2C2C",
+            lineHeight: 1.2,
+            textAlign: "center"
+        }}>
+            Tiempo de reclutamiento
+        </span>
+        
+        <img
+            src={RecProblems}
+            alt="Problemas de reclutadores"
+            style={{ 
+                width: "100%", 
+                maxWidth: isMobile ? "100%" : 550, 
+                height: "auto"
+            }}
+        />
+        
+        <div style={{
+            fontWeight: 700,
+            fontSize: isMobile ? 22 : 28,
+            color: "#3B2580",
+            fontFamily: "'Montserrat', sans-serif",
+            textAlign: "center"
+        }}>
+            30 minutos - 2 horas
         </div>
     </div>
 );
 
 //caja empleado
 const SlideEmp = ({ isMobile }) => (
-    <div className="animate-fade-in-right" style={boxContentStyle}>
-        <div style={{ display: "flex", alignItems: "center", width: "100%", justifyContent: "flex-start" }}>
-            <span className="bounce" style={{ fontSize: isMobile ? 22 : 26, fontWeight: 700, marginRight: 10, color: "#4B2676", animationDelay: "0.2s" }}><IoWarningOutline /></span>
-            <span style={{ 
-				fontWeight: 700, 
-				fontSize: isMobile ? 18 : 26, 
-				fontFamily: "'Montserrat', sans-serif", 
-				color: "#2C2C2C",
-				lineHeight: isMobile ? 1.3 : 1
-			}}>
-                Abandono de búsqueda laboral
-            </span>
-        </div>
-        <div style={{ width: "100%" }}>
-            <hr style={{ width: "100%", border: "none", borderTop: "2px solid #dbe2ea", margin: "10px 0 18px 0" }} />
-        </div>
-        <div style={{ 
-			flex: 1, 
-			display: "flex", 
-			flexDirection: "column", 
-			alignItems: "center", 
-			justifyContent: "center", 
-			width: "100%" 
-		}}>
-            <img
-                src={EmpProblems}
-                alt="Problemas de empleados"
-                className="sharp-image hover-scale"
-                style={{ 
-					width: "100%", 
-					maxWidth: isMobile ? 400 : 700, 
-					display: "block",
-					height: "auto",
-					minHeight: isMobile ? 150 : "auto"
-				}}
-            />
+    <div style={{
+        ...boxContentStyle,
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        borderRadius: "20px",
+        padding: isMobile ? "40px 24px" : "60px 50px",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+        border: "1px solid #e2e8f0",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "32px",
+        minHeight: isMobile ? "auto" : 550
+    }}>
+        <span style={{ 
+            fontWeight: 700, 
+            fontSize: isMobile ? 22 : 32, 
+            fontFamily: "'Montserrat', sans-serif", 
+            color: "#2C2C2C",
+            lineHeight: 1.2,
+            textAlign: "center"
+        }}>
+            Abandono de búsqueda laboral
+        </span>
+        
+        <img
+            src={EmpProblems}
+            alt="Problemas de empleados"
+            style={{ 
+                width: "100%", 
+                maxWidth: isMobile ? "100%" : 550, 
+                height: "auto"
+            }}
+        />
+        
+        <div style={{
+            fontWeight: 700,
+            fontSize: isMobile ? 22 : 28,
+            color: "#3B2580",
+            fontFamily: "'Montserrat', sans-serif",
+            textAlign: "center"
+        }}>
+            Alto porcentaje de abandono
         </div>
     </div>
 );
@@ -122,23 +125,32 @@ const SlideEmp = ({ isMobile }) => (
 export default function Problematic() {
 	const isMobile = useIsMobile();
 	const [currentSlide, setCurrentSlide] = useState(1); // Empezar en el medio
+	const [isVisible, setIsVisible] = useState(false);
+	const sectionRef = useRef(null);
 
-    //style base cajas
-    const boxBaseStyle = {
-        background: "#f4f7fb",
-        borderRadius: 16,
-        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.25)",
-        padding: isMobile ? "24px 20px 28px 20px" : "24px 32px 32px 32px",
-        minWidth: isMobile ? "100%" : 480,
-        minHeight: isMobile ? 380 : 340,
-        height: isMobile ? "auto" : 380,
-        width: isMobile ? "100%" : 700,
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        boxSizing: "border-box",
-        zIndex: 2,
-    };
+	// Intersection Observer para detectar cuando la sección es visible
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						setIsVisible(true);
+					}
+				});
+			},
+			{ threshold: 0.1 }
+		);
+
+		if (sectionRef.current) {
+			observer.observe(sectionRef.current);
+		}
+
+		return () => {
+			if (sectionRef.current) {
+				observer.unobserve(sectionRef.current);
+			}
+		};
+	}, []);
 
 	const slides = [
 		<SlideEmp key="emp" isMobile={isMobile} />,
@@ -167,27 +179,31 @@ export default function Problematic() {
     return (
         <div
 			id="problematica"
-			className="animate-fade-in-up"
+			ref={sectionRef}
             style={{
                 width: "100%",
                 minHeight: isMobile ? "auto" : 500,
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 alignItems: "center",
                 background: "#f4f7fb",
-                padding: isMobile ? "30px 20px" : "35px 20px",
+                padding: isMobile ? "30px 20px 40px 20px" : "40px 20px 50px 20px",
                 position: "relative",
                 overflow: "hidden",
             }}
         >
 			{/* Título de la problemática */}
-			<div style={{
-				textAlign: "center",
-				marginBottom: isMobile ? 15 : 20,
-				width: "100%",
-				maxWidth: 800
-			}}>
+			<div 
+				className={isVisible ? 'feature-title' : ''}
+				style={{
+					textAlign: "center",
+					marginBottom: isMobile ? 25 : 35,
+					marginTop: 0,
+					width: "100%",
+					maxWidth: 800
+				}}
+			>
 				<h2 style={{
 					fontSize: isMobile ? 24 : 32,
 					fontWeight: 700,
@@ -213,21 +229,20 @@ export default function Problematic() {
 				// Vista móvil con carousel
 				<div style={{ 
 					width: "100%", 
+					maxWidth: 600,
 					position: "relative",
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center"
 				}}>
-					<div style={boxBaseStyle}>
-						{slides[currentSlide]}
-					</div>
+					{slides[currentSlide]}
 					
 					{/* Navigation arrows */}
 					<div style={{ 
 						display: "flex", 
 						justifyContent: "center", 
 						gap: 20, 
-						marginTop: 20,
+						marginTop: 24,
 						alignItems: "center"
 					}}>
 						<button
@@ -292,19 +307,18 @@ export default function Problematic() {
 				// Vista desktop con dos cajas lado a lado
 				<div
 					style={{
-						width: 1500,
-						maxWidth: "98%",
-						height: 440,
+						width: "100%",
+						maxWidth: 1400,
 						display: "flex",
-						alignItems: "center",
+						alignItems: "stretch",
 						justifyContent: "center",
-						gap: 32,
+						gap: 40,
 					}}
 				>
-					<div style={boxBaseStyle}>
+					<div style={{ flex: 1, maxWidth: 650 }}>
 						<SlideEmp isMobile={false} />
 					</div>
-					<div style={boxBaseStyle}>
+					<div style={{ flex: 1, maxWidth: 650 }}>
 						<SlideRec isMobile={false} />
 					</div>
 				</div>

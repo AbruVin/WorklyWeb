@@ -22,7 +22,7 @@ function App() {
       <main style={{ 
         width: "100%", 
         background: "#f4f7fb",
-        paddingTop: "56px" // Compensar el header fijo
+        paddingTop: "0"
       }}>
         <Home />
         <Problematic />

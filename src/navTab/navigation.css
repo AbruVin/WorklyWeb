@@ -13,8 +13,9 @@
   border-bottom: 1.5px solid #e6eaf2;
   min-height: 56px;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 1001;
   transition: background 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: auto;
 }
 
 .navigation-header.scrolled {
@@ -32,6 +33,11 @@
   align-items: center;
   text-decoration: none;
   transition: transform 0.3s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
 }
 
 .nav-brand:hover {
@@ -64,53 +70,65 @@
 
 .nav-desktop {
   display: flex;
-  gap: 32px;
+  gap: 16px;
   font-weight: 600;
   font-size: 17px;
   color: #23223B;
   font-family: 'Montserrat', sans-serif;
+  pointer-events: auto;
 }
 
 .nav-item {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: transparent;
   border: none;
+  border-bottom: 2px solid transparent;
   font-family: 'Montserrat', sans-serif;
   font-size: inherit;
-  color: inherit;
-  font-weight: inherit;
+  color: #64748B;
+  font-weight: 600;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  z-index: 10;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: color, border-bottom;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  min-width: fit-content;
+  white-space: nowrap;
 }
 
 .nav-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 37, 128, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.nav-item:hover::before {
-  left: 100%;
+  display: block;
+  content: attr(data-text);
+  font-weight: 700;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
 }
 
 .nav-item:hover {
-  color: #3B2580;
-  transform: translateY(-2px);
+  color: #475569;
+  background: transparent;
 }
 
 .nav-item.active {
   color: #3B2580;
   font-weight: 700;
-  background: rgba(59, 37, 128, 0.05);
+  background: transparent;
   border-bottom: 2px solid #3B2580;
+  text-shadow: 0 0 0.01px #3B2580;
 }
 
 .mobile-menu-button {
@@ -147,7 +165,7 @@
   border-bottom: 1.5px solid #e6eaf2;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   padding: 20px 16px;
-  z-index: 99;
+  z-index: 1000;
   animation: slideDownFade 0.3s ease-out forwards;
 }
 
@@ -187,6 +205,11 @@
   font-weight: inherit;
   text-align: left;
   width: 100%;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .mobile-nav-item:hover {
@@ -230,7 +253,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .nav-desktop {
-    gap: 24px;
+    gap: 14px;
     font-size: 16px;
   }
   
@@ -241,7 +264,7 @@
 
 @media (min-width: 1200px) {
   .nav-desktop {
-    gap: 40px;
+    gap: 20px;
     font-size: 18px;
   }
   

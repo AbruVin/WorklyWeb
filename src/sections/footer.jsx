@@ -17,7 +17,7 @@ export default function Footer() {
   const isMobile = useIsMobile();
   
   return (
-    <footer className="animated-gradient float" style={{
+    <footer style={{
       background: "#151225",
       color: "#fff",
       padding: isMobile ? "24px 16px 20px 16px" : "36px 32px 24px 32px",
@@ -27,7 +27,7 @@ export default function Footer() {
       boxSizing: "border-box",
       overflowX: "hidden"
     }}>
-      <div className="animate-fade-in-up" style={{
+      <div style={{
         display: "flex",
         flexDirection: isMobile ? "column" : "row",
         justifyContent: "space-between",
@@ -38,11 +38,11 @@ export default function Footer() {
         gap: isMobile ? 24 : 0
       }}>
         {/* Columna izquierda */}
-        <div className="stagger-1" style={{ 
+        <div style={{ 
           minWidth: isMobile ? "100%" : 260,
           textAlign: isMobile ? "center" : "left"
         }}>
-          <div className="hover-bounce" style={{ 
+          <div style={{ 
             display: "flex", 
             alignItems: "center", 
             marginBottom: 8,
