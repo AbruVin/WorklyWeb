@@ -5,25 +5,25 @@ import {
     IoPersonOutline, IoFilterOutline, IoGlobeOutline,
     IoCloudUploadOutline, IoPencilOutline, IoHourglassOutline
 } from "react-icons/io5";
-import RecFunc1 from "../assets/functionsImgs/RegisterRec.svg";
-import RecFunc2 from "../assets/functionsImgs/FiltersRec.svg";
-import RecFunc3 from "../assets/functionsImgs/NavRec.svg";
-import EmpFunc1 from "../assets/functionsImgs/RegisterEmp.svg";
-import EmpFunc2 from "../assets/functionsImgs/ProfileEmp.svg";
-import EmpFunc3 from "../assets/functionsImgs/NotiMsgEmp.svg";
+import RecFunc1 from "../assets/functionsImgs/registrarseRecImg.svg";
+import RecFunc2 from "../assets/functionsImgs/filtrosImg.svg";
+import RecFunc3 from "../assets/functionsImgs/navegarImg.svg";
+import EmpFunc1 from "../assets/functionsImgs/cargarDatosImg.svg";
+import EmpFunc2 from "../assets/functionsImgs/editarPerfilImg.svg";
+import EmpFunc3 from "../assets/functionsImgs/propuestasImg.svg";
 import BlueHex from "../assets/functionsImgs/hexBlue.svg";
 import IndigoHex from "../assets/functionsImgs/hexIndigo.svg";
 import VioletHex from "../assets/functionsImgs/hexViolet.svg";
 
 // Hook para detectar si es móvil
 function useIsMobile(breakpoint = 768) {
-	const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, [breakpoint]);
-	return isMobile;
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [breakpoint]);
+    return isMobile;
 }
 
 const boxContentStyle = {
@@ -44,13 +44,13 @@ const HexIcon = ({ icon, hexImg, alt, isMobile }) => (
         justifyContent: "center",
         position: "relative",
     }}>
-        <img src={hexImg} alt={alt} style={{ 
-            position: "absolute", 
-            width: isMobile ? 40 : 56, 
-            height: isMobile ? 40 : 56, 
-            left: 0, 
-            top: 0, 
-            zIndex: 1 
+        <img src={hexImg} alt={alt} style={{
+            position: "absolute",
+            width: isMobile ? 40 : 56,
+            height: isMobile ? 40 : 56,
+            left: 0,
+            top: 0,
+            zIndex: 1
         }} />
         <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center" }}>
             {React.cloneElement(icon, { size: isMobile ? 20 : 32 })}
@@ -134,7 +134,6 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                         Empresas
                     </span>
                 </div>
-                
                 <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
                     <Step
                         step={1}
@@ -159,20 +158,24 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                         hexImg={VioletHex}
                     />
                 </div>
-                
+                {/* Contenedor fijo para evitar desfase y filtro para saturación */}
                 <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
-                    <img
-                        key={activeStep}
-                        src={stepImages[activeStep]}
-                        alt="Empresas"
-                        className={getAnimationClass()}
-                        style={{ 
-                            width: "100%", 
-                            maxWidth: "100%",
-                            height: "auto",
-                            imageRendering: "auto"
-                        }}
-                    />
+                    <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <img
+                            key={activeStep}
+                            src={stepImages[activeStep]}
+                            alt="Empresas"
+                            className={getAnimationClass()}
+                            style={{
+                                width: "100%",
+                                maxWidth: 300,
+                                height: 570,
+                                objectFit: "contain",
+                                imageRendering: "auto",
+                                filter: "saturate(0.7)"
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         );
@@ -196,42 +199,56 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                     alignItems: "flex-start",
                     height: "100%",
                     flex: "0 0 auto",
-                    maxWidth: "65%"
+                    maxWidth: "65%",
+                    justifyContent: "center" // Centrado vertical
                 }}
             >
                 <div
                     style={{
+                        width: "100%",
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
-                        marginBottom: 16
+                        marginTop: isMobile ? 12 : 24,
                     }}
                 >
-                    <IoBusiness size={24} color="#948AA0" />
+                    <IoBusiness
+                        size={24}
+                        color="#948AA0"
+                        style={{ display: "block", verticalAlign: "middle" }}
+                    />
                     <span
                         style={{
                             color: "#948AA0",
                             fontWeight: 600,
                             fontSize: 16,
-                            fontFamily: "Montserrat"
+                            fontFamily: "Montserrat",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            lineHeight: 1,
                         }}
                     >
                         Empresas
                     </span>
                 </div>
-                <img
-                    key={activeStep}
-                    src={stepImages[activeStep]}
-                    alt="Empresas"
-                    className={getAnimationClass()}
-                    style={{
-                        width: "100%",
-                        maxWidth: 600,
-                        height: "auto",
-                        transition: "all 0.3s ease",
-                        imageRendering: "auto"
-                    }}
-                />
+                {/* Contenedor fijo para evitar desfase y filtro para saturación */}
+                <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
+                    <img
+                        key={activeStep}
+                        src={stepImages[activeStep]}
+                        alt="Empresas"
+                        className={getAnimationClass()}
+                        style={{
+                            width: "100%",
+                            maxWidth: 300,
+                            height: 570,
+                            objectFit: "contain",
+                            transition: "all 0.3s ease",
+                            imageRendering: "auto",
+                            filter: "saturate(0.7)"
+                        }}
+                    />
+                </div>
             </div>
             <div
                 style={{
@@ -345,7 +362,6 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                     </span>
                     <IoBriefcase size={20} color="#948AA0" />
                 </div>
-                
                 <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
                     <Step
                         step={1}
@@ -369,20 +385,24 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                         hexImg={VioletHex}
                     />
                 </div>
-                
+                {/* Contenedor fijo para evitar desfase y filtro para saturación */}
                 <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
-                    <img
-                        key={activeStep}
-                        src={stepImages[activeStep]}
-                        alt="Empleados"
-                        className={getAnimationClass()}
-                        style={{ 
-                            width: "100%", 
-                            maxWidth: "100%",
-                            height: "auto",
-                            imageRendering: "auto"
-                        }}
-                    />
+                    <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <img
+                            key={activeStep}
+                            src={stepImages[activeStep]}
+                            alt="Empleados"
+                            className={getAnimationClass()}
+                            style={{
+                                width: "100%",
+                                maxWidth: 300,
+                                height: 570,
+                                objectFit: "contain",
+                                imageRendering: "auto",
+                                filter: "saturate(0.7)"
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         );
@@ -406,42 +426,56 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                     alignItems: "flex-start",
                     height: "100%",
                     flex: "0 0 auto",
-                    maxWidth: "65%"
+                    maxWidth: "65%",
+                    justifyContent: "center"
                 }}
             >
                 <div
                     style={{
+                        width: "100%",
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
-                        marginBottom: 16
+                        marginTop: isMobile ? 12 : 24,
                     }}
                 >
+                    <IoBriefcase
+                        size={24}
+                        color="#948AA0"
+                        style={{ display: "block", verticalAlign: "middle" }}
+                    />
                     <span
                         style={{
                             color: "#948AA0",
                             fontWeight: 600,
                             fontSize: 16,
-                            fontFamily: "Montserrat"
+                            fontFamily: "Montserrat",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            lineHeight: 1,
                         }}
                     >
                         Empleados
                     </span>
-                    <IoBriefcase size={24} color="#948AA0" />
                 </div>
-                <img
-                    key={activeStep}
-                    src={stepImages[activeStep]}
-                    alt="Empleados"
-                    className={getAnimationClass()}
-                    style={{
-                        width: "100%",
-                        maxWidth: 600,
-                        height: "auto",
-                        transition: "all 0.3s ease",
-                        imageRendering: "auto"
-                    }}
-                />
+                {/* Contenedor fijo para evitar desfase y filtro para saturación */}
+                <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
+                    <img
+                        key={activeStep}
+                        src={stepImages[activeStep]}
+                        alt="Empleados"
+                        className={getAnimationClass()}
+                        style={{
+                            width: "100%",
+                            maxWidth: 300,
+                            height: 570,
+                            objectFit: "contain",
+                            transition: "all 0.3s ease",
+                            imageRendering: "auto",
+                            filter: "saturate(0.7)"
+                        }}
+                    />
+                </div>
             </div>
             <div
                 style={{
@@ -525,7 +559,7 @@ export default function Functions() {
         background: "#f4f7fb",
         borderRadius: 16,
         boxShadow: "0 4px 16px rgba(0, 0, 0, 0.25)",
-        padding: isMobile ? "28px 24px 32px 24px" : "32px 40px 40px 40px",
+        padding: isMobile ? "40px 24px 32px 24px" : "48px 40px 40px 40px", // más padding top
         minWidth: isMobile ? "100%" : 600,
         minHeight: isMobile ? 520 : 520,
         height: isMobile ? "auto" : 600,
@@ -535,6 +569,7 @@ export default function Functions() {
         alignItems: "flex-start",
         boxSizing: "border-box",
         zIndex: 2,
+        overflow: "hidden", // mantiene todo dentro
     };
 
     const slides = [
@@ -547,9 +582,9 @@ export default function Functions() {
 
     return (
         <div
-			id="funciones"
-			ref={sectionRef}
-			style={{
+            id="funciones"
+            ref={sectionRef}
+            style={{
                 width: "100%",
                 minHeight: isMobile ? "auto" : "100vh",
                 display: "flex",
@@ -562,27 +597,27 @@ export default function Functions() {
                 overflow: "hidden",
             }}
         >
-            <h2 
-				className={isVisible ? 'feature-title' : ''}
-				style={{
-					textAlign: "center",
-					fontWeight: 700,
-					fontSize: isMobile ? 28 : 36,
-					marginBottom: isMobile ? 32 : 48,
-					fontFamily: 'Montserrat',
-					color: "#232323",
-					lineHeight: isMobile ? 1.2 : 1
-				}}
-			>
-                <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>¿Cómo </span>
+            <h2
+                className={isVisible ? 'feature-title' : ''}
+                style={{
+                    textAlign: "center",
+                    fontWeight: 700,
+                    fontSize: isMobile ? 28 : 36,
+                    marginBottom: isMobile ? 32 : 48,
+                    fontFamily: 'Montserrat',
+                    color: "#232323",
+                    lineHeight: isMobile ? 1.2 : 1
+                }}
+            >
+                <span style={{ fontFamily: 'Montserrat Bold, Montserrat', fontWeight: 700 }}>¿Cómo </span>
                 <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>funciona</span>
-                <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>
+                <span style={{ fontFamily: 'Montserrat Bold, Montserrat', fontWeight: 700 }}>?</span>
             </h2>
-            
+
             {isMobile ? (
                 // Vista móvil con carousel
-                <div style={{ 
-                    width: "100%", 
+                <div style={{
+                    width: "100%",
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
@@ -591,12 +626,12 @@ export default function Functions() {
                     <div style={boxBaseStyle}>
                         {slides[currentSlide]}
                     </div>
-                    
+
                     {/* Navigation arrows */}
-                    <div style={{ 
-                        display: "flex", 
-                        justifyContent: "center", 
-                        gap: 20, 
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: 20,
                         marginTop: 20,
                         alignItems: "center"
                     }}>
@@ -617,7 +652,7 @@ export default function Functions() {
                         >
                             <IoChevronBack size={20} />
                         </button>
-                        
+
                         {/* Dots indicator */}
                         <div style={{ display: "flex", gap: 8 }}>
                             {slides.map((_, idx) => (
@@ -635,7 +670,7 @@ export default function Functions() {
                                 />
                             ))}
                         </div>
-                        
+
                         <button
                             onClick={goNext}
                             style={{
@@ -668,10 +703,10 @@ export default function Functions() {
                         gap: 40,
                     }}
                 >
-                    <div style={{...boxBaseStyle, minHeight: 520, height: 600}}>
+                    <div style={{ ...boxBaseStyle, minHeight: 520, height: 600 }}>
                         <SlideRec isMobile={false} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />
                     </div>
-                    <div style={{...boxBaseStyle, minHeight: 520, height: 600}}>
+                    <div style={{ ...boxBaseStyle, minHeight: 520, height: 600 }}>
                         <SlideEmp isMobile={false} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
                     </div>
                 </div>

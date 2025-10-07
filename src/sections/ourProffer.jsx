@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-import { 
-  IoBusiness, IoBriefcase, IoTimeOutline, IoTrophyOutline, IoSparklesOutline, 
-  IoDiamondOutline, IoRocketOutline, IoBodyOutline 
+import {
+  IoBusiness, IoBriefcase, IoTimeOutline, IoTrophyOutline, IoSparklesOutline,
+  IoDiamondOutline, IoRocketOutline, IoBodyOutline
 } from "react-icons/io5";
 import "../App.css";
 
 // Hook para detectar si es móvil
 function useIsMobile(breakpoint = 768) {
-	const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
-		window.addEventListener("resize", handleResize);
-		return () => window.removeEventListener("resize", handleResize);
-	}, [breakpoint]);
-	return isMobile;
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < breakpoint);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [breakpoint]);
+  return isMobile;
 }
 
 const empresaFeatures = [
@@ -76,7 +76,7 @@ export default function OurProffer() {
       }
     };
   }, []);
-  
+
   const features = selected === "empresa" ? empresaFeatures : empleadoFeatures;
 
   // Función para manejar el cambio con animación
@@ -91,14 +91,14 @@ export default function OurProffer() {
   };
 
   return (
-  <div id="solucion" ref={sectionRef} style={{ 
-    background: "#f4f7fb", 
-    minHeight: isMobile ? "auto" : "auto", 
-    width: "100%", 
-    padding: isMobile ? "20px 16px" : "30px 0", 
-    boxSizing: "border-box" 
-  }}>
-      <h2 
+    <div id="solucion" ref={sectionRef} style={{
+      background: "#fff",
+      minHeight: isMobile ? "auto" : "auto",
+      width: "100%",
+      padding: isMobile ? "20px 16px" : "30px 0",
+      boxSizing: "border-box"
+    }}>
+      <h2
         className={isVisible ? 'feature-title' : ''}
         style={{
           textAlign: "center",
@@ -111,9 +111,9 @@ export default function OurProffer() {
           lineHeight: isMobile ? 1.2 : 1
         }}
       >
-        <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>¿Cómo lo </span>
+        <span style={{ fontFamily: 'Montserrat Bold, Montserrat', fontWeight: 700 }}>¿Cómo lo </span>
         <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>solucionamos</span>
-        <span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>?</span>
+        <span style={{ fontFamily: 'Montserrat Bold, Montserrat', fontWeight: 700 }}>?</span>
       </h2>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: isMobile ? 20 : 28 }}>
         <div style={{
@@ -140,8 +140,8 @@ export default function OurProffer() {
               fontWeight: 700,
               fontFamily: 'Montserrat',
               fontSize: isMobile ? 15 : 19,
-              background: selected === "empresa" 
-                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)" 
+              background: selected === "empresa"
+                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)"
                 : "transparent",
               color: selected === "empresa" ? "#fff" : "#3B2580",
               border: selected === "empresa" ? "none" : "2px solid transparent",
@@ -149,13 +149,13 @@ export default function OurProffer() {
               padding: isMobile ? "14px 16px" : "16px 28px",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              boxShadow: selected === "empresa" 
-                ? "0 4px 20px rgba(59, 37, 128, 0.4)" 
+              boxShadow: selected === "empresa"
+                ? "0 4px 20px rgba(59, 37, 128, 0.4)"
                 : "none",
               transform: selected === "empresa" ? "translateY(-1px)" : "none"
             }}
           >
-            <IoBusiness size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} /> 
+            <IoBusiness size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} />
             Empresas
           </button>
           <button
@@ -170,8 +170,8 @@ export default function OurProffer() {
               fontWeight: 700,
               fontFamily: 'Montserrat',
               fontSize: isMobile ? 15 : 19,
-              background: selected === "empleado" 
-                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)" 
+              background: selected === "empleado"
+                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)"
                 : "transparent",
               color: selected === "empleado" ? "#fff" : "#3B2580",
               border: selected === "empleado" ? "none" : "2px solid transparent",
@@ -179,12 +179,25 @@ export default function OurProffer() {
               padding: isMobile ? "14px 16px" : "16px 28px",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              boxShadow: selected === "empleado" 
-                ? "0 4px 20px rgba(59, 37, 128, 0.4)" 
+              boxShadow: selected === "empleado"
+                ? "0 4px 20px rgba(59, 37, 128, 0.4)"
                 : "none",
               transform: selected === "empleado" ? "translateY(-1px)" : "none"
             }}
           >
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: isMobile ? 22 : 28,
+                height: isMobile ? 22 : 28,
+                transform: "scale(1.15)",
+                marginRight: isMobile ? 2 : 4,
+              }}
+            >
+              <IoBriefcase size={isMobile ? 20 : 26} />
+            </span>
             Profesionales
           </button>
         </div>
@@ -205,8 +218,9 @@ export default function OurProffer() {
           borderRadius: 20,
           boxShadow: "0 12px 48px rgba(59, 37, 128, 0.15)",
           padding: isMobile ? 24 : 48,
-          width: "100%",
-          maxWidth: isMobile ? "100%" : 1400,
+          width: isMobile ? "100%" : 900,
+          maxWidth: isMobile ? "100%" : 900,
+          minWidth: isMobile ? "100%" : 900,
           minHeight: isMobile ? "auto" : 400,
           justifyContent: "center",
           boxSizing: "border-box",
@@ -216,8 +230,8 @@ export default function OurProffer() {
             // Extraer color del icono original
             const iconColor = f.icon.props.color || "#0B1175";
             return (
-              <div 
-                key={`${selected}-${i}`} 
+              <div
+                key={`${selected}-${i}`}
                 style={{
                   background: "linear-gradient(135deg, #f4f7fb 0%, #e8ebf0 100%)",
                   borderRadius: 16,
@@ -255,9 +269,9 @@ export default function OurProffer() {
                   flexShrink: 0,
                   boxShadow: `0 4px 20px ${iconColor}40`
                 }}>
-                  {React.cloneElement(f.icon, { 
-                    color: "#fff", 
-                    size: isMobile ? 28 : 36 
+                  {React.cloneElement(f.icon, {
+                    color: "#fff",
+                    size: isMobile ? 28 : 36
                   })}
                 </div>
                 <div style={{
