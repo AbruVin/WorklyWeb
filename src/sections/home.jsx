@@ -44,23 +44,23 @@ export default function Home() {
 		<div id="home" className="professional-fade" style={{ 
 			background: "#f4f7fb", 
 			width: "100%", 
-			height: isMobile ? "auto" : "75vh", 
-			maxHeight: isMobile ? "none" : "none",
-			minHeight: isMobile ? 420 : 480,
+			height: isMobile ? "calc(100vh - 60px)" : "calc(100vh - 70px)", 
+			maxHeight: isMobile ? "calc(100vh - 60px)" : "calc(100vh - 70px)",
+			minHeight: isMobile ? "calc(100vh - 60px)" : "calc(100vh - 70px)",
 			boxSizing: "border-box", 
 			overflow: "hidden", 
 			display: "flex", 
 			flexDirection: "column",
 			paddingTop: 0,
 			paddingBottom: isMobile ? 30 : 0,
-			marginTop: isMobile ? "60px" : "70px"
+			marginTop: isMobile ? "52px" : "62px"
 		}}>
 			{/* Carrousel */}
 			<div style={{ 
 				width: "100%", 
-				height: isMobile ? "65vh" : "80vh", 
-				maxHeight: isMobile ? 500 : 520, 
-				minHeight: isMobile ? 400 : 320, 
+				height: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 140px)", 
+				maxHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 140px)", 
+				minHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 140px)", 
 				position: "relative", 
 				overflow: "hidden",
 				zIndex: 2 
@@ -133,9 +133,9 @@ export default function Home() {
 							className="phone-image"
 							style={{
 								width: "100%",
-								height: isMobile ? "60vh" : "75vh",
-								maxHeight: isMobile ? 480 : 500,
-								minHeight: isMobile ? 380 : 300,
+								height: "100%",
+								maxHeight: "100%",
+								minHeight: "100%",
 								objectFit: "cover",
 								flexShrink: 0,
 								flexGrow: 0
