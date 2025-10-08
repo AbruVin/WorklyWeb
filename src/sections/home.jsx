@@ -44,9 +44,9 @@ export default function Home() {
 		<div id="home" className="professional-fade" style={{ 
 			background: "#f4f7fb", 
 			width: "100%", 
-			height: isMobile ? "calc(100vh - 60px)" : "calc(100vh - 70px)", 
-			maxHeight: isMobile ? "calc(100vh - 60px)" : "calc(100vh - 70px)",
-			minHeight: isMobile ? "calc(100vh - 60px)" : "calc(100vh - 70px)",
+			height: isMobile ? "calc(100vh - 170px)" : "calc(100vh - 180px)", 
+			maxHeight: isMobile ? "calc(100vh - 170px)" : "calc(100vh - 180px)",
+			minHeight: isMobile ? "calc(100vh - 170px)" : "calc(100vh - 180px)",
 			boxSizing: "border-box", 
 			overflow: "hidden", 
 			display: "flex", 
@@ -58,9 +58,9 @@ export default function Home() {
 			{/* Carrousel */}
 			<div style={{ 
 				width: "100%", 
-				height: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 200px)", 
-				maxHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 20px)", 
-				minHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 200px)", 
+				height: isMobile ? "calc(100vh - 140px)" : "calc(100vh - 290px)", 
+				maxHeight: isMobile ? "calc(100vh - 140px)" : "calc(100vh - 290px)", 
+				minHeight: isMobile ? "calc(100vh - 140px)" : "calc(100vh - 290px)", 
 				position: "relative", 
 				overflow: "hidden",
 				zIndex: 2 
