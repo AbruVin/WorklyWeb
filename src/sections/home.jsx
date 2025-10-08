@@ -58,9 +58,9 @@ export default function Home() {
 			{/* Carrousel */}
 			<div style={{ 
 				width: "100%", 
-				height: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 140px)", 
-				maxHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 140px)", 
-				minHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 140px)", 
+				height: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 200px)", 
+				maxHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 20px)", 
+				minHeight: isMobile ? "calc(100vh - 120px)" : "calc(100vh - 200px)", 
 				position: "relative", 
 				overflow: "hidden",
 				zIndex: 2 
