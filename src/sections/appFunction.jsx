@@ -37,23 +37,24 @@ const boxContentStyle = {
 
 const HexIcon = ({ icon, hexImg, alt, isMobile }) => (
     <span style={{
-        width: isMobile ? 40 : 56,
-        height: isMobile ? 40 : 56,
+        width: isMobile ? 32 : 56,
+        height: isMobile ? 32 : 56,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         position: "relative",
+        flexShrink: 0
     }}>
         <img src={hexImg} alt={alt} style={{
             position: "absolute",
-            width: isMobile ? 40 : 56,
-            height: isMobile ? 40 : 56,
+            width: isMobile ? 32 : 56,
+            height: isMobile ? 32 : 56,
             left: 0,
             top: 0,
             zIndex: 1
         }} />
         <span style={{ position: "relative", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {React.cloneElement(icon, { size: isMobile ? 20 : 32 })}
+            {React.cloneElement(icon, { size: isMobile ? 16 : 32 })}
         </span>
     </span>
 );
@@ -94,8 +95,10 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                 cursor: "pointer",
                 opacity: activeStep === step ? 1 : 0.6,
                 transition: "all 0.3s ease",
-                marginBottom: isMobile ? 16 : 24,
-                transform: activeStep === step ? "translateX(0)" : "translateX(-8px)"
+                marginBottom: isMobile ? 12 : 24,
+                transform: activeStep === step ? "translateX(0)" : "translateX(-8px)",
+                width: isMobile ? "100%" : "auto",
+                justifyContent: isMobile ? "flex-start" : "center"
             }}
         >
             <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
@@ -131,14 +134,60 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
 
     if (isMobile) {
         return (
-            <div style={{ ...boxContentStyle, width: "100%", height: "100%" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-                    <IoBusiness size={20} color="#948AA0" />
-                    <span style={{ color: "#948AA0", fontWeight: 600, fontSize: 14, fontFamily: "Montserrat" }}>
-                        Empresas
-                    </span>
+            <div style={{ 
+                ...boxContentStyle, 
+                width: "100%", 
+                height: "auto",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: "24px 16px",
+                gap: 32
+            }}>
+                {/* Header */}
+                <div style={{ 
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: 24
+                }}>
+                    <div style={{ 
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        justifyContent: "center"
+                    }}>
+                        <IoBusiness size={20} color="#948AA0" style={{ display: "block" }} />
+                        <span style={{ 
+                            color: "#948AA0", 
+                            fontWeight: 600, 
+                            fontSize: 14, 
+                            fontFamily: "Montserrat",
+                            lineHeight: 1
+                        }}>
+                            Empresas
+                        </span>
+                    </div>
+
+                    {/* Phone Image */}
+                    <div style={{ width: "100%", maxWidth: 280, textAlign: "center" }}>
+                        <img
+                            key={activeStep}
+                            src={stepImages[activeStep]}
+                            alt="Empresas"
+                            className={getAnimationClass()}
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                                transition: "all 0.3s ease"
+                            }}
+                        />
+                    </div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+
+                {/* Steps */}
+                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
                     <Step
                         step={1}
                         label="Regístrate"
@@ -161,24 +210,6 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                         icon={<IoGlobeOutline color="#4B1C84" />}
                         hexImg={VioletHex}
                     />
-                </div>
-                {/* Contenedor fijo para evitar desfase y filtro para saturación */}
-                <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
-                    <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <img
-                            key={activeStep}
-                            src={stepImages[activeStep]}
-                            alt="Empresas"
-                            className={getAnimationClass()}
-                            style={{
-                                width: "100%",
-                                maxWidth: 300,
-                                height: 570,
-                                objectFit: "contain",
-                                imageRendering: "auto",
-                            }}
-                        />
-                    </div>
                 </div>
             </div>
         );
@@ -361,14 +392,60 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
 
     if (isMobile) {
         return (
-            <div style={{ ...boxContentStyle, width: "100%", height: "100%" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-                    <IoBriefcase size={20} color="#948AA0" />
-                    <span style={{ color: "#948AA0", fontWeight: 600, fontSize: 14, fontFamily: "Montserrat" }}>
-                        Profesionales
-                    </span>
+            <div style={{ 
+                ...boxContentStyle, 
+                width: "100%", 
+                height: "auto",
+                flexDirection: "column",
+                alignItems: "center",
+                padding: "24px 16px",
+                gap: 32
+            }}>
+                {/* Header */}
+                <div style={{ 
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: 24
+                }}>
+                    <div style={{ 
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        justifyContent: "center"
+                    }}>
+                        <IoBriefcase size={20} color="#948AA0" style={{ display: "block" }} />
+                        <span style={{ 
+                            color: "#948AA0", 
+                            fontWeight: 600, 
+                            fontSize: 14, 
+                            fontFamily: "Montserrat",
+                            lineHeight: 1
+                        }}>
+                            Profesionales
+                        </span>
+                    </div>
+
+                    {/* Phone Image */}
+                    <div style={{ width: "100%", maxWidth: 280, textAlign: "center" }}>
+                        <img
+                            key={activeStep}
+                            src={stepImages[activeStep]}
+                            alt="Empleados"
+                            className={getAnimationClass()}
+                            style={{
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                                transition: "all 0.3s ease"
+                            }}
+                        />
+                    </div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+
+                {/* Steps */}
+                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
                     <Step
                         step={1}
                         label="Carga tus datos"
@@ -390,24 +467,6 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                         icon={<IoHourglassOutline color="#4B1C84" />}
                         hexImg={VioletHex}
                     />
-                </div>
-                {/* Contenedor fijo para evitar desfase y filtro para saturación */}
-                <div style={{ marginTop: 20, width: "100%", display: "flex", justifyContent: "center" }}>
-                    <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <img
-                            key={activeStep}
-                            src={stepImages[activeStep]}
-                            alt="Empleados"
-                            className={getAnimationClass()}
-                            style={{
-                                width: "100%",
-                                maxWidth: 300,
-                                height: 570,
-                                objectFit: "contain",
-                                imageRendering: "auto",
-                            }}
-                        />
-                    </div>
                 </div>
             </div>
         );
