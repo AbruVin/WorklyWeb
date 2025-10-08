@@ -254,7 +254,7 @@ export default function OurProffer() {
                 lineHeight: 1,
               }}
             >
-              Empleados
+              Profesionales
             </span>
           </div>
           {empleadoFeatures.map((feature, index) => renderFeature(feature, index))}

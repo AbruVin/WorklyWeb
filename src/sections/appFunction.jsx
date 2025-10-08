@@ -92,31 +92,35 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                 alignItems: "center",
                 position: "relative",
                 cursor: "pointer",
-                opacity: activeStep === step ? 1 : 0.4,
-                transition: "opacity 0.3s ease",
-                marginBottom: isMobile ? 12 : 0
+                opacity: activeStep === step ? 1 : 0.6,
+                transition: "all 0.3s ease",
+                marginBottom: isMobile ? 16 : 24,
+                transform: activeStep === step ? "translateX(0)" : "translateX(-8px)"
             }}
         >
             <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
             <div
                 style={{
-                    border: `2px solid ${borderColor}`,
-                    borderRadius: 16,
-                    padding: isMobile ? "8px 8px 8px 24px" : "10px 10px 10px 35px",
-                    background: activeStep === step ? "#f3f3ff" : "transparent",
+                    border: `1px solid ${borderColor}`,
+                    borderRadius: 12,
+                    padding: isMobile ? "12px 16px 12px 32px" : "16px 24px 16px 40px",
+                    background: "#ffffff",
                     textAlign: "left",
                     marginLeft: isMobile ? -20 : -28,
-                    minWidth: isMobile ? 180 : 260,
-                    transition: "all 0.3s ease"
+                    minWidth: isMobile ? 200 : 300,
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+                    transform: activeStep === step ? "scale(1.02)" : "scale(1)"
                 }}
             >
                 <span
                     style={{
-                        fontWeight: isBold ? 600 : 500,
-                        fontSize: isMobile ? (isBold ? 16 : 14) : (isBold ? 20 : 18),
-                        color: "#2C2C2C",
+                        fontWeight: 600,
+                        fontSize: isMobile ? 15 : 17,
+                        color: "#232323",
                         fontFamily: "Montserrat",
-                        lineHeight: isMobile ? 1.2 : 1
+                        lineHeight: 1.2,
+                        display: "block"
                     }}
                 >
                     {label}
@@ -172,7 +176,6 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                                 height: 570,
                                 objectFit: "contain",
                                 imageRendering: "auto",
-                                filter: "saturate(0.7)"
                             }}
                         />
                     </div>
@@ -209,7 +212,6 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
-                        marginTop: isMobile ? 12 : 24,
                     }}
                 >
                     <IoBusiness
@@ -232,7 +234,7 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                     </span>
                 </div>
                 {/* Contenedor fijo para evitar desfase y filtro para saturación */}
-                <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
+                <div style={{ width: 500, display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
                     <img
                         key={activeStep}
                         src={stepImages[activeStep]}
@@ -240,12 +242,11 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                         className={getAnimationClass()}
                         style={{
                             width: "100%",
-                            maxWidth: 300,
-                            height: 570,
+                            maxWidth: 500,
                             objectFit: "contain",
                             transition: "all 0.3s ease",
                             imageRendering: "auto",
-                            filter: "saturate(0.7)"
+                            filter: "saturate(0.75)"
                         }}
                     />
                 </div>
@@ -312,39 +313,44 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
         return "phone-image";
     };
 
+    // Step visual igual a empresa
     const Step = ({ step, label, borderColor, icon, hexImg }) => (
         <div
             onClick={() => setActiveStep(step)}
             style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-start",
                 position: "relative",
                 cursor: "pointer",
-                opacity: activeStep === step ? 1 : 0.4,
-                marginBottom: isMobile ? 12 : 0
+                opacity: activeStep === step ? 1 : 0.6,
+                transition: "all 0.3s ease",
+                marginBottom: isMobile ? 16 : 24,
+                transform: activeStep === step ? "translateX(0)" : "translateX(-8px)"
             }}
         >
             <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
             <div
                 style={{
-                    border: `2px solid ${borderColor}`,
-                    borderRadius: 16,
-                    padding: isMobile ? "8px 8px 8px 24px" : "10px 10px 10px 35px",
-                    background: activeStep === step ? "#f3f3ff" : "transparent",
+                    border: `1px solid ${borderColor}`,
+                    borderRadius: 12,
+                    padding: isMobile ? "12px 16px 12px 32px" : "16px 24px 16px 40px",
+                    background: "#ffffff",
                     textAlign: "left",
                     marginLeft: isMobile ? -20 : -28,
-                    minWidth: isMobile ? 180 : 260,
-                    transition: "all 0.3s ease"
+                    minWidth: isMobile ? 200 : 300,
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+                    transform: activeStep === step ? "scale(1.02)" : "scale(1)"
                 }}
             >
                 <span
                     style={{
-                        fontWeight: step === 1 ? 600 : 500,
-                        fontSize: isMobile ? (step === 1 ? 16 : 14) : (step === 1 ? 20 : 18),
-                        color: "#2C2C2C",
+                        fontWeight: 600,
+                        fontSize: isMobile ? 15 : 17,
+                        color: "#232323",
                         fontFamily: "Montserrat",
-                        lineHeight: isMobile ? 1.2 : 1
+                        lineHeight: 1.2,
+                        display: "block"
                     }}
                 >
                     {label}
@@ -357,10 +363,10 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
         return (
             <div style={{ ...boxContentStyle, width: "100%", height: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-                    <span style={{ color: "#948AA0", fontWeight: 600, fontSize: 14, fontFamily: "Montserrat" }}>
-                        Empleados
-                    </span>
                     <IoBriefcase size={20} color="#948AA0" />
+                    <span style={{ color: "#948AA0", fontWeight: 600, fontSize: 14, fontFamily: "Montserrat" }}>
+                        Profesionales
+                    </span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
                     <Step
@@ -399,7 +405,6 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                                 height: 570,
                                 objectFit: "contain",
                                 imageRendering: "auto",
-                                filter: "saturate(0.7)"
                             }}
                         />
                     </div>
@@ -436,7 +441,6 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                         display: "flex",
                         alignItems: "center",
                         gap: 8,
-                        marginTop: isMobile ? 12 : 24,
                     }}
                 >
                     <IoBriefcase
@@ -455,11 +459,11 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                             lineHeight: 1,
                         }}
                     >
-                        Empleados
+                        Profesionales
                     </span>
                 </div>
                 {/* Contenedor fijo para evitar desfase y filtro para saturación */}
-                <div style={{ width: 300, height: 570, display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
+                <div style={{ width: 500, display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }}>
                     <img
                         key={activeStep}
                         src={stepImages[activeStep]}
@@ -467,12 +471,11 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                         className={getAnimationClass()}
                         style={{
                             width: "100%",
-                            maxWidth: 300,
-                            height: 570,
+                            maxWidth: 500,
                             objectFit: "contain",
                             transition: "all 0.3s ease",
                             imageRendering: "auto",
-                            filter: "saturate(0.7)"
+                            filter: "saturate(0.75)"
                         }}
                     />
                 </div>
@@ -551,14 +554,14 @@ export default function Functions() {
     }, [selected]);
 
     const boxBaseStyle = {
-        background: "#f4f7fb",
-        borderRadius: 16,
-        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.25)",
-        padding: isMobile ? "40px 24px 32px 24px" : "48px 40px 40px 40px",
+        background: "#ffffff",
+        borderRadius: 20,
+        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
+        padding: isMobile ? "24px" : "40px",
         minWidth: isMobile ? "100%" : 600,
         minHeight: isMobile ? 520 : 520,
-        height: isMobile ? "auto" : 600,
-        width: isMobile ? "100%" : 900,
+        height: isMobile ? "auto" : "auto",
+        width: isMobile ? "100%" : 1000,
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
@@ -670,7 +673,19 @@ export default function Functions() {
                             transform: selected === "empleado" ? "translateY(-1px)" : "none"
                         }}
                     >
-                        <IoBriefcase size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} />
+                        <span
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: isMobile ? 22 : 28,
+                                height: isMobile ? 22 : 28,
+                                transform: "scale(1.15)",
+                                marginRight: isMobile ? 2 : 4,
+                            }}
+                        >
+                            <IoBriefcase size={isMobile ? 20 : 26} />
+                        </span>
                         Profesionales
                     </button>
                 </div>
