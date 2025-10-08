@@ -89,7 +89,7 @@ export default function OurProffer() {
         key={`feature-${index}`}
         style={{
           background: "#ffffff",
-          borderRadius: 8,
+          borderRadius: 12,
           padding: "16px",
           width: "100%",
           display: "flex",

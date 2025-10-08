@@ -329,3 +329,21 @@
     margin: 6px 0;
   }
 }
+
+/* Remove outline for all buttons in navigation */
+.navigation-header button,
+.mobile-menu button {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navigation-header button:focus,
+.mobile-menu button:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
+/* Remove the default focus styles for all interactive elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
