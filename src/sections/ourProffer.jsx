@@ -47,7 +47,6 @@ const empleadoFeatures = [
 ];
 
 export default function OurProffer() {
-  const [selected, setSelected] = useState("empresa");
   const [isAnimating, setIsAnimating] = useState(false);
   const isMobile = useIsMobile();
   const [isVisible, setIsVisible] = useState(false);
@@ -77,23 +76,67 @@ export default function OurProffer() {
     };
   }, []);
 
-  const features = selected === "empresa" ? empresaFeatures : empleadoFeatures;
-
-  // Función para manejar el cambio con animación
-  const handleSelectionChange = (newSelection) => {
-    if (newSelection !== selected) {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setSelected(newSelection);
-        setIsAnimating(false);
-      }, 150); // Pequeño delay para la transición
+  // Función para controlar animación
+  useEffect(() => {
+    if (isVisible) {
+      setIsAnimating(false);
     }
+  }, [isVisible]);
+
+  const renderFeature = (feature, index) => {
+    return (
+      <div
+        key={`feature-${index}`}
+        style={{
+          background: "#ffffff",
+          borderRadius: 8,
+          padding: "16px",
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 16,
+          border: "1px solid #e9ecef",
+          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)",
+          opacity: isAnimating ? 0 : 1,
+          transform: isAnimating ? "translateY(20px)" : "translateY(0)",
+          transition: "all 0.3s ease-out",
+          animationDelay: `${index * 0.1}s`,
+          animation: isAnimating ? "none" : `slideInUp 0.4s ease-out ${index * 0.1}s both`
+        }}
+        className={!isAnimating ? "animate-on-scroll" : ""}
+      >
+        <div style={{
+          background: feature.icon.props.color,
+          borderRadius: "50%",
+          width: 48,
+          height: 48,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0
+        }}>
+          {React.cloneElement(feature.icon, {
+            color: "#fff",
+            size: 24
+          })}
+        </div>
+        <div style={{
+          fontFamily: 'Montserrat',
+          fontWeight: 600,
+          fontSize: 16,
+          color: "#232323",
+          flex: 1
+        }}>
+          {feature.title}
+        </div>
+      </div>
+    );
   };
 
   return (
     <div id="solucion" ref={sectionRef} style={{
       background: "#fff",
-      minHeight: isMobile ? "auto" : "auto",
       width: "100%",
       padding: isMobile ? "20px 16px" : "30px 0",
       boxSizing: "border-box"
@@ -104,7 +147,7 @@ export default function OurProffer() {
           textAlign: "center",
           fontWeight: 700,
           fontSize: isMobile ? 28 : 36,
-          marginBottom: isMobile ? 20 : 28,
+          marginBottom: isMobile ? 20 : 50,
           fontFamily: 'Montserrat',
           color: "#232323",
           padding: isMobile ? "0 16px" : 0,
@@ -115,177 +158,106 @@ export default function OurProffer() {
         <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>solucionamos</span>
         <span style={{ fontFamily: 'Montserrat Bold, Montserrat', fontWeight: 700 }}>?</span>
       </h2>
-      <div style={{ display: "flex", justifyContent: "center", marginBottom: isMobile ? 20 : 28 }}>
-        <div style={{
-          background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
-          borderRadius: 20,
-          boxShadow: "0 8px 32px rgba(59, 37, 128, 0.15)",
-          display: "flex",
-          padding: 8,
-          gap: 4,
-          minWidth: isMobile ? 320 : 400,
-          width: isMobile ? "95%" : "auto",
-          maxWidth: isMobile ? 450 : "none",
-          border: "2px solid rgba(59, 37, 128, 0.1)"
-        }}>
-          <button
-            onClick={() => handleSelectionChange("empresa")}
-            className="hover-glow"
-            style={{
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              gap: isMobile ? 6 : 10,
-              justifyContent: "center",
-              fontWeight: 700,
-              fontFamily: 'Montserrat',
-              fontSize: isMobile ? 15 : 19,
-              background: selected === "empresa"
-                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)"
-                : "transparent",
-              color: selected === "empresa" ? "#fff" : "#3B2580",
-              border: selected === "empresa" ? "none" : "2px solid transparent",
-              borderRadius: 14,
-              padding: isMobile ? "14px 16px" : "16px 28px",
-              cursor: "pointer",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              boxShadow: selected === "empresa"
-                ? "0 4px 20px rgba(59, 37, 128, 0.4)"
-                : "none",
-              transform: selected === "empresa" ? "translateY(-1px)" : "none"
-            }}
-          >
-            <IoBusiness size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} />
-            Empresas
-          </button>
-          <button
-            onClick={() => handleSelectionChange("empleado")}
-            className="hover-glow"
-            style={{
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              gap: isMobile ? 6 : 10,
-              justifyContent: "center",
-              fontWeight: 700,
-              fontFamily: 'Montserrat',
-              fontSize: isMobile ? 15 : 19,
-              background: selected === "empleado"
-                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)"
-                : "transparent",
-              color: selected === "empleado" ? "#fff" : "#3B2580",
-              border: selected === "empleado" ? "none" : "2px solid transparent",
-              borderRadius: 14,
-              padding: isMobile ? "14px 16px" : "16px 28px",
-              cursor: "pointer",
-              transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-              boxShadow: selected === "empleado"
-                ? "0 4px 20px rgba(59, 37, 128, 0.4)"
-                : "none",
-              transform: selected === "empleado" ? "translateY(-1px)" : "none"
-            }}
-          >
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: isMobile ? 22 : 28,
-                height: isMobile ? 22 : 28,
-                transform: "scale(1.15)",
-                marginRight: isMobile ? 2 : 4,
-              }}
-            >
-              <IoBriefcase size={isMobile ? 20 : 26} />
-            </span>
-            Profesionales
-          </button>
-        </div>
-      </div>
+
       <div style={{
         display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        gap: 40,
         justifyContent: "center",
         width: "100%",
         background: "none",
         margin: 0,
-        padding: 0,
+        padding: "0 16px",
+        maxWidth: 1200,
+        marginLeft: "auto",
+        marginRight: "auto"
       }}>
+        {/* Box for Empresa Features */}
         <div style={{
-          display: isMobile ? "flex" : "flex",
-          flexDirection: isMobile ? "column" : "row",
-          gap: isMobile ? 20 : 40,
-          background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
-          borderRadius: 20,
-          boxShadow: "0 12px 48px rgba(59, 37, 128, 0.15)",
-          padding: isMobile ? 24 : 48,
-          width: isMobile ? "100%" : 900,
-          maxWidth: isMobile ? "100%" : 900,
-          minWidth: isMobile ? "100%" : 900,
-          minHeight: isMobile ? "auto" : 400,
-          justifyContent: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+          background: "#f8f9fa",
+          borderRadius: 12,
+          padding: 24,
+          width: isMobile ? "100%" : "45%",
+          maxWidth: 600,
           boxSizing: "border-box",
-          border: "1px solid rgba(59, 37, 128, 0.1)"
+          border: "1px solid #e9ecef",
+          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)"
         }}>
-          {features.map((f, i) => {
-            // Extraer color del icono original
-            const iconColor = f.icon.props.color || "#0B1175";
-            return (
-              <div
-                key={`${selected}-${i}`}
-                style={{
-                  background: "linear-gradient(135deg, #f4f7fb 0%, #e8ebf0 100%)",
-                  borderRadius: 16,
-                  padding: isMobile ? "28px 20px 24px 20px" : "40px 32px 32px 32px",
-                  minWidth: isMobile ? "100%" : 220,
-                  width: "100%",
-                  maxWidth: isMobile ? "100%" : 320,
-                  minHeight: isMobile ? 140 : 280,
-                  display: "flex",
-                  flexDirection: isMobile ? "row" : "column",
-                  alignItems: isMobile ? "center" : "center",
-                  justifyContent: isMobile ? "flex-start" : "center",
-                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
-                  gap: isMobile ? 20 : 0,
-                  border: "1px solid rgba(255, 255, 255, 0.5)",
-                  position: "relative",
-                  overflow: "hidden",
-                  opacity: isAnimating ? 0 : 1,
-                  transform: isAnimating ? "translateY(20px) scale(0.95)" : "translateY(0) scale(1)",
-                  transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  animationDelay: `${i * 0.1}s`,
-                  animation: isAnimating ? "none" : `slideInUp 0.6s ease-out ${i * 0.1}s both`
-                }}
-                className={!isAnimating ? "animate-on-scroll" : ""}
-              >
-                <div style={{
-                  background: `linear-gradient(135deg, ${iconColor} 0%, ${iconColor}dd 100%)`,
-                  borderRadius: "50%",
-                  width: isMobile ? 64 : 88,
-                  height: isMobile ? 64 : 88,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: isMobile ? 0 : 20,
-                  flexShrink: 0,
-                  boxShadow: `0 4px 20px ${iconColor}40`
-                }}>
-                  {React.cloneElement(f.icon, {
-                    color: "#fff",
-                    size: isMobile ? 28 : 36
-                  })}
-                </div>
-                <div style={{
-                  fontFamily: 'Montserrat',
-                  fontWeight: 600,
-                  fontSize: isMobile ? 17 : 20,
-                  color: "#232323",
-                  textAlign: isMobile ? "left" : "center",
-                  flex: isMobile ? 1 : "none",
-                  lineHeight: 1.3
-                }}>{f.title}</div>
-              </div>
-            );
-          })}
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <IoBusiness
+              size={24}
+              color="#948AA0"
+              style={{ display: "block", verticalAlign: "middle" }}
+            />
+            <span
+              style={{
+                color: "#948AA0",
+                fontWeight: 600,
+                fontSize: 16,
+                fontFamily: "Montserrat",
+                display: "inline-flex",
+                alignItems: "center",
+                lineHeight: 1,
+              }}
+            >
+              Empresas
+            </span>
+          </div>
+          {empresaFeatures.map((feature, index) => renderFeature(feature, index))}
+        </div>
+
+        {/* Box for Empleado Features */}
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 16,
+          background: "#f8f9fa",
+          borderRadius: 12,
+          padding: 24,
+          width: isMobile ? "100%" : "45%",
+          maxWidth: 600,
+          boxSizing: "border-box",
+          border: "1px solid #e9ecef",
+          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)"
+        }}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <IoBriefcase
+              size={24}
+              color="#948AA0"
+              style={{ display: "block", verticalAlign: "middle" }}
+            />
+            <span
+              style={{
+                color: "#948AA0",
+                fontWeight: 600,
+                fontSize: 16,
+                fontFamily: "Montserrat",
+                display: "inline-flex",
+                alignItems: "center",
+                lineHeight: 1,
+              }}
+            >
+              Empleados
+            </span>
+          </div>
+          {empleadoFeatures.map((feature, index) => renderFeature(feature, index))}
         </div>
       </div>
     </div>

@@ -514,13 +514,12 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
 
 export default function Functions() {
     const isMobile = useIsMobile();
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [selected, setSelected] = useState("empresa");
     const [activeStepRec, setActiveStepRec] = useState(1);
     const [activeStepEmp, setActiveStepEmp] = useState(1);
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef(null);
 
-    // Intersection Observer para detectar cuando la sección es visible
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -532,11 +531,9 @@ export default function Functions() {
             },
             { threshold: 0.1 }
         );
-
         if (sectionRef.current) {
             observer.observe(sectionRef.current);
         }
-
         return () => {
             if (sectionRef.current) {
                 observer.unobserve(sectionRef.current);
@@ -544,22 +541,20 @@ export default function Functions() {
         };
     }, []);
 
-    // Reset active step when changing slides in mobile
+    // Reset active step when changing slides
     useEffect(() => {
-        if (isMobile) {
-            if (currentSlide === 0) {
-                setActiveStepRec(1);
-            } else {
-                setActiveStepEmp(1);
-            }
+        if (selected === "empresa") {
+            setActiveStepRec(1);
+        } else {
+            setActiveStepEmp(1);
         }
-    }, [currentSlide, isMobile]);
+    }, [selected]);
 
     const boxBaseStyle = {
         background: "#f4f7fb",
         borderRadius: 16,
         boxShadow: "0 4px 16px rgba(0, 0, 0, 0.25)",
-        padding: isMobile ? "40px 24px 32px 24px" : "48px 40px 40px 40px", // más padding top
+        padding: isMobile ? "40px 24px 32px 24px" : "48px 40px 40px 40px",
         minWidth: isMobile ? "100%" : 600,
         minHeight: isMobile ? 520 : 520,
         height: isMobile ? "auto" : 600,
@@ -569,16 +564,8 @@ export default function Functions() {
         alignItems: "flex-start",
         boxSizing: "border-box",
         zIndex: 2,
-        overflow: "hidden", // mantiene todo dentro
+        overflow: "hidden",
     };
-
-    const slides = [
-        <SlideRec key="rec" isMobile={isMobile} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />,
-        <SlideEmp key="emp" isMobile={isMobile} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
-    ];
-
-    const goNext = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
-    const goPrev = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
     return (
         <div
@@ -613,104 +600,92 @@ export default function Functions() {
                 <span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>funciona</span>
                 <span style={{ fontFamily: 'Montserrat Bold, Montserrat', fontWeight: 700 }}>?</span>
             </h2>
-
-            {isMobile ? (
-                // Vista móvil con carousel
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: isMobile ? 20 : 28 }}>
                 <div style={{
-                    width: "100%",
-                    position: "relative",
+                    background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
+                    borderRadius: 20,
+                    boxShadow: "0 8px 32px rgba(59, 37, 128, 0.15)",
                     display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center"
+                    padding: 8,
+                    gap: 4,
+                    minWidth: isMobile ? 320 : 400,
+                    width: isMobile ? "95%" : "auto",
+                    maxWidth: isMobile ? 450 : "none",
+                    border: "2px solid rgba(59, 37, 128, 0.1)"
                 }}>
-                    <div style={boxBaseStyle}>
-                        {slides[currentSlide]}
-                    </div>
-
-                    {/* Navigation arrows */}
-                    <div style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        gap: 20,
-                        marginTop: 20,
-                        alignItems: "center"
-                    }}>
-                        <button
-                            onClick={goPrev}
-                            style={{
-                                background: "#3B2580",
-                                border: "none",
-                                borderRadius: "50%",
-                                width: 40,
-                                height: 40,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                cursor: "pointer",
-                                color: "#fff"
-                            }}
-                        >
-                            <IoChevronBack size={20} />
-                        </button>
-
-                        {/* Dots indicator */}
-                        <div style={{ display: "flex", gap: 8 }}>
-                            {slides.map((_, idx) => (
-                                <span
-                                    key={idx}
-                                    style={{
-                                        width: 8,
-                                        height: 8,
-                                        borderRadius: "50%",
-                                        background: idx === currentSlide ? "#3B2580" : "#d1d1e0",
-                                        display: "inline-block",
-                                        cursor: "pointer"
-                                    }}
-                                    onClick={() => setCurrentSlide(idx)}
-                                />
-                            ))}
-                        </div>
-
-                        <button
-                            onClick={goNext}
-                            style={{
-                                background: "#3B2580",
-                                border: "none",
-                                borderRadius: "50%",
-                                width: 40,
-                                height: 40,
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                cursor: "pointer",
-                                color: "#fff"
-                            }}
-                        >
-                            <IoChevronForward size={20} />
-                        </button>
-                    </div>
+                    <button
+                        onClick={() => setSelected("empresa")}
+                        className="hover-glow"
+                        style={{
+                            flex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: isMobile ? 6 : 10,
+                            justifyContent: "center",
+                            fontWeight: 700,
+                            fontFamily: 'Montserrat',
+                            fontSize: isMobile ? 15 : 19,
+                            background: selected === "empresa"
+                                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)"
+                                : "transparent",
+                            color: selected === "empresa" ? "#fff" : "#3B2580",
+                            border: selected === "empresa" ? "none" : "2px solid transparent",
+                            borderRadius: 14,
+                            padding: isMobile ? "14px 16px" : "16px 28px",
+                            cursor: "pointer",
+                            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                            boxShadow: selected === "empresa"
+                                ? "0 4px 20px rgba(59, 37, 128, 0.4)"
+                                : "none",
+                            transform: selected === "empresa" ? "translateY(-1px)" : "none"
+                        }}
+                    >
+                        <IoBusiness size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} />
+                        Empresas
+                    </button>
+                    <button
+                        onClick={() => setSelected("empleado")}
+                        className="hover-glow"
+                        style={{
+                            flex: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: isMobile ? 6 : 10,
+                            justifyContent: "center",
+                            fontWeight: 700,
+                            fontFamily: 'Montserrat',
+                            fontSize: isMobile ? 15 : 19,
+                            background: selected === "empleado"
+                                ? "linear-gradient(135deg, #3B2580 0%, #4B1C84 100%)"
+                                : "transparent",
+                            color: selected === "empleado" ? "#fff" : "#3B2580",
+                            border: selected === "empleado" ? "none" : "2px solid transparent",
+                            borderRadius: 14,
+                            padding: isMobile ? "14px 16px" : "16px 28px",
+                            cursor: "pointer",
+                            transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                            boxShadow: selected === "empleado"
+                                ? "0 4px 20px rgba(59, 37, 128, 0.4)"
+                                : "none",
+                            transform: selected === "empleado" ? "translateY(-1px)" : "none"
+                        }}
+                    >
+                        <IoBriefcase size={isMobile ? 20 : 26} style={{ marginRight: isMobile ? 2 : 4 }} />
+                        Profesionales
+                    </button>
                 </div>
-            ) : (
-                // Vista desktop con dos cajas lado a lado
-                <div
-                    style={{
-                        width: 1800,
-                        maxWidth: "98%",
-                        height: 600,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 40,
-                    }}
-                >
+            </div>
+            <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                {selected === "empresa" ? (
                     <div style={{ ...boxBaseStyle, minHeight: 520, height: 600 }}>
-                        <SlideRec isMobile={false} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />
+                        <SlideRec isMobile={isMobile} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />
                     </div>
+                ) : (
                     <div style={{ ...boxBaseStyle, minHeight: 520, height: 600 }}>
-                        <SlideEmp isMobile={false} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
+                        <SlideEmp isMobile={isMobile} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }
