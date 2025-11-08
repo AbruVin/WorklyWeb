@@ -9,6 +9,7 @@ import ReviewsSimple from './sections/reviewsSimple.jsx'
 import FAQ from './sections/faq.jsx'
 import Contact from './sections/contact.jsx'
 import Footer from './sections/footer.jsx'
+import UpdatesSection from './sections/updatesSection.jsx'
 // import ReviewsSection from './sections/reviewsSection.jsx'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <AppFunction />
         <FeaturesSection />
         <IndustriesSection />
+        <UpdatesSection />
         <ReviewsSimple />
         <FAQ />
         <Contact />

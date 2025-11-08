@@ -187,7 +187,7 @@ export default function ReviewsSimple() {
 						marginBottom: isMobile ? 12 : 16,
 						lineHeight: 1.2
 					}}>
-						<span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 600 }}>Lo que dicen </span>
+						<span style={{ fontFamily: 'Montserrat SemiBold, Montserrat', fontWeight: 800 }}>Lo que dicen </span>
 						<span style={{ color: "#3B2580", fontFamily: 'Montserrat ExtraBold Italic, Montserrat', fontWeight: 800, fontStyle: "italic" }}>nuestros usuarios</span>
 					</h2>
 					<p style={{

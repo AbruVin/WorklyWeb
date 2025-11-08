@@ -5,12 +5,12 @@ import {
     IoPersonOutline, IoFilterOutline, IoGlobeOutline,
     IoCloudUploadOutline, IoPencilOutline, IoHourglassOutline
 } from "react-icons/io5";
-import RecFunc1 from "../assets/functionsImgs/registrarseRecImg.svg";
-import RecFunc2 from "../assets/functionsImgs/filtrosImg.svg";
-import RecFunc3 from "../assets/functionsImgs/navegarImg.svg";
-import EmpFunc1 from "../assets/functionsImgs/cargarDatosImg.svg";
-import EmpFunc2 from "../assets/functionsImgs/editarPerfilImg.svg";
-import EmpFunc3 from "../assets/functionsImgs/propuestasImg.svg";
+import RecFunc1 from "../assets/functionsImgs/recImg1.svg";
+import RecFunc2 from "../assets/functionsImgs/recImg2.svg";
+import RecFunc3 from "../assets/functionsImgs/recImg3.svg";
+import EmpFunc1 from "../assets/functionsImgs/empImg1.svg";
+import EmpFunc2 from "../assets/functionsImgs/empImg2.svg";
+import EmpFunc3 from "../assets/functionsImgs/empImg3.svg";
 import BlueHex from "../assets/functionsImgs/hexBlue.svg";
 import IndigoHex from "../assets/functionsImgs/hexIndigo.svg";
 import VioletHex from "../assets/functionsImgs/hexViolet.svg";
