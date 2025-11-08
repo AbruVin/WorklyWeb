@@ -30,6 +30,13 @@ const updates = [
   },
   {
     icon: <IoCalendarOutline size={48} color="#616161" />,
+    title: "Interfaz web",
+    description: "Aplicación web para utilizar Workly desde computadoras.",
+    status: "Planificado",
+    statusColor: "#F6F6F6"
+  },
+  {
+    icon: <IoCalendarOutline size={48} color="#616161" />,
     title: "Sincronización",
     description: "Creación del perfil en base a aplicaciones externas como Linkedin.",
     status: "Planificado",
