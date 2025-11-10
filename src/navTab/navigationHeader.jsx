@@ -24,6 +24,7 @@ const NAV_SECTIONS = [
 	{ id: 'home', label: 'Inicio' },
 	{ id: 'problematica', label: 'Problemática' },
 	{ id: 'solucion', label: 'Solución' },
+	{ id: 'novedades', label: 'Novedades' },
 	{ id: 'faq', label: 'FAQ' },
 	{ id: 'contacto', label: 'Contacto' }
 ];

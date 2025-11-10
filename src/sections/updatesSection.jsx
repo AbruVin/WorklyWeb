@@ -23,7 +23,7 @@ const updates = [
   },
   {
     icon: <IoCodeWorkingOutline size={48} color="#000B81" />,
-    title: "Implementación de IA",
+    title: "Sincronización",
     description: "Resumen con preguntas personalizadas de los talentos.",
     status: "En desarrollo",
     statusColor: "#EFF1FE"
@@ -37,7 +37,7 @@ const updates = [
   },
   {
     icon: <IoCalendarOutline size={48} color="#616161" />,
-    title: "Sincronización",
+    title: "Implementación de IA",
     description: "Creación del perfil en base a aplicaciones externas como Linkedin.",
     status: "Planificado",
     statusColor: "#F6F6F6"
