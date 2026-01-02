@@ -123,7 +123,7 @@ export default function FeaturesSection() {
 					display: "grid",
 					gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(350px, 1fr))",
 					gap: isMobile ? 20 : 30,
-					alignItems: "start"
+					alignItems: "stretch"
 				}}>
 					{features.map((feature, index) => (
 						<div
@@ -135,7 +135,9 @@ export default function FeaturesSection() {
 								padding: isMobile ? 20 : 24,
 								border: "1px solid #e6eaf2",
 								transition: "all 0.3s ease",
-								opacity: isVisible ? 1 : 0
+								opacity: isVisible ? 1 : 0,
+								display: "flex",
+								flexDirection: "column"
 							}}
 						>
 							<div style={{

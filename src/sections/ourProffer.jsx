@@ -138,7 +138,7 @@ export default function OurProffer() {
     <div id="solucion" ref={sectionRef} style={{
       background: "#fff",
       width: "100%",
-      height: "80vH",
+      height: "65vH",
       padding: isMobile ? "20px 16px" : "30px 0",
       boxSizing: "border-box"
     }}>

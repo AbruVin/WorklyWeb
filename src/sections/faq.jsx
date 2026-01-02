@@ -91,7 +91,7 @@ export default function FAQ() {
 									background: "#f8f9fc",
 									borderRadius: 16,
 									overflow: "hidden",
-									border: isOpen ? "2px solid #3B2580" : "2px solid transparent",
+									border: isOpen ? "2px solid #3B2580" : "2px solid #D7D7D8",
 									transition: "all 0.3s ease"
 								}}
 							>

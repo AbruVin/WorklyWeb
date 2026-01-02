@@ -11,9 +11,30 @@ import RecFunc3 from "../assets/functionsImgs/recImg3.svg";
 import EmpFunc1 from "../assets/functionsImgs/empImg1.svg";
 import EmpFunc2 from "../assets/functionsImgs/empImg2.svg";
 import EmpFunc3 from "../assets/functionsImgs/empImg3.svg";
-import BlueHex from "../assets/functionsImgs/hexBlue.svg";
-import IndigoHex from "../assets/functionsImgs/hexIndigo.svg";
-import VioletHex from "../assets/functionsImgs/hexViolet.svg";
+
+// Agregar estilos globales para la animación de fade
+const style = document.createElement("style");
+style.textContent = `
+    @keyframes fadeInImage {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .phone-image {
+        animation: fadeInImage 0.5s ease-out;
+    }
+
+    button:focus {
+        outline: none;
+    }
+`;
+document.head.appendChild(style);
 
 // Hook para detectar si es móvil
 function useIsMobile(breakpoint = 768) {
@@ -67,17 +88,30 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
         3: RecFunc3
     };
 
-    // Auto-play: cambiar pasos automáticamente cada 4 segundos
-    useEffect(() => {
-        const timer = setInterval(() => {
+    const timerRef = React.useRef(null);
+
+    const startAutoPlay = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
             setActiveStep(prevStep => {
-                if (prevStep === 3) return 1; // Volver al inicio
+                if (prevStep === 3) return 1;
                 return prevStep + 1;
             });
-        }, 4000); // Cambiar cada 4 segundos
+        }, 4000);
+    };
 
-        return () => clearInterval(timer); // Limpiar el intervalo
+    // Auto-play: cambiar pasos automáticamente cada 4 segundos
+    useEffect(() => {
+        startAutoPlay();
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current);
+        };
     }, [setActiveStep]);
+
+    const handleStepClick = (step) => {
+        setActiveStep(step);
+        startAutoPlay();
+    };
 
     // Función para determinar la clase de animación
     const getAnimationClass = () => {
@@ -85,37 +119,47 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
         return "phone-image";
     };
 
-    const Step = ({ step, label, borderColor, icon, hexImg, isBold }) => (
-        <div
-            onClick={() => setActiveStep(step)}
-            style={{
-                display: "flex",
-                alignItems: "center",
-                position: "relative",
-                cursor: "pointer",
-                opacity: activeStep === step ? 1 : 0.6,
-                transition: "all 0.3s ease",
-                marginBottom: isMobile ? 12 : 24,
-                transform: activeStep === step ? "translateX(0)" : "translateX(-8px)",
-                width: isMobile ? "100%" : "auto",
-                justifyContent: isMobile ? "flex-start" : "center"
-            }}
-        >
-            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
+    const Step = ({ step, label, iconColor, pastelBg }) => {
+        const icons = {
+            1: <IoPersonOutline color={iconColor} />,
+            2: <IoFilterOutline color={iconColor} />,
+            3: <IoGlobeOutline color={iconColor} />
+        };
+
+        return (
             <div
+                onClick={() => handleStepClick(step)}
                 style={{
-                    border: `1px solid ${borderColor}`,
-                    borderRadius: 12,
-                    padding: isMobile ? "12px 16px 12px 32px" : "16px 24px 16px 40px",
-                    background: "#ffffff",
-                    textAlign: "left",
-                    marginLeft: isMobile ? -20 : -28,
-                    minWidth: isMobile ? 200 : 300,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: isMobile ? 16 : 20,
+                    cursor: "pointer",
+                    borderRadius: 16,
+                    border: "1px solid #D7D7D8",
+                    background: "#FFFFFF",
+                    padding: isMobile ? "16px 20px" : "20px 24px",
                     transition: "all 0.3s ease",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
-                    transform: activeStep === step ? "scale(1.02)" : "scale(1)"
+                    opacity: activeStep === step ? 1 : 0.7,
+                    marginBottom: isMobile ? 12 : 16,
+                    width: isMobile ? "100%" : "auto",
+                    minWidth: isMobile ? "100%" : 320,
+                    boxShadow: activeStep === step ? "0 8px 24px rgba(0, 0, 0, 0.12)" : "0 2px 8px rgba(0, 0, 0, 0.05)"
                 }}
             >
+                <div
+                    style={{
+                        width: isMobile ? 48 : 56,
+                        height: isMobile ? 48 : 56,
+                        borderRadius: 12,
+                        background: pastelBg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0
+                    }}
+                >
+                    {React.cloneElement(icons[step], { size: isMobile ? 24 : 28 })}
+                </div>
                 <span
                     style={{
                         fontWeight: 600,
@@ -129,8 +173,8 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                     {label}
                 </span>
             </div>
-        </div>
-    );
+        );
+    };
 
     if (isMobile) {
         return (
@@ -191,24 +235,20 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                     <Step
                         step={1}
                         label="Regístrate"
-                        borderColor="#000B81"
-                        icon={<IoPersonOutline color="#000B81" />}
-                        hexImg={BlueHex}
-                        isBold
+                        iconColor="#000B81"
+                        pastelBg="#E0DFFF"
                     />
                     <Step
                         step={2}
                         label="Aplica los filtros"
-                        borderColor="#29158C"
-                        icon={<IoFilterOutline color="#29158C" />}
-                        hexImg={IndigoHex}
+                        iconColor="#29158C"
+                        pastelBg="#DFD9FF"
                     />
                     <Step
                         step={3}
                         label="Navega entre los talentos"
-                        borderColor="#4B1C84"
-                        icon={<IoGlobeOutline color="#4B1C84" />}
-                        hexImg={VioletHex}
+                        iconColor="#4B1C84"
+                        pastelBg="#F8E9FF"
                     />
                 </div>
             </div>
@@ -294,24 +334,20 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                 <Step
                     step={1}
                     label="Regístrate"
-                    borderColor="#000B81"
-                    icon={<IoPersonOutline color="#000B81" />}
-                    hexImg={BlueHex}
-                    isBold
+                    iconColor="#000B81"
+                    pastelBg="#E0DFFF"
                 />
                 <Step
                     step={2}
                     label="Aplica los filtros"
-                    borderColor="#29158C"
-                    icon={<IoFilterOutline color="#29158C" />}
-                    hexImg={IndigoHex}
+                    iconColor="#29158C"
+                    pastelBg="#DFD9FF"
                 />
                 <Step
                     step={3}
                     label="Navega entre los talentos"
-                    borderColor="#4B1C84"
-                    icon={<IoGlobeOutline color="#4B1C84" />}
-                    hexImg={VioletHex}
+                    iconColor="#4B1C84"
+                    pastelBg="#F8E9FF"
                 />
             </div>
         </div>
@@ -326,17 +362,30 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
         3: EmpFunc3
     };
 
-    // Auto-play: cambiar pasos automáticamente cada 4 segundos
-    useEffect(() => {
-        const timer = setInterval(() => {
+    const timerRef = React.useRef(null);
+
+    const startAutoPlay = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
             setActiveStep(prevStep => {
-                if (prevStep === 3) return 1; // Volver al inicio
+                if (prevStep === 3) return 1;
                 return prevStep + 1;
             });
-        }, 4000); // Cambiar cada 4 segundos
+        }, 4000);
+    };
 
-        return () => clearInterval(timer); // Limpiar el intervalo
+    // Auto-play: cambiar pasos automáticamente cada 4 segundos
+    useEffect(() => {
+        startAutoPlay();
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current);
+        };
     }, [setActiveStep]);
+
+    const handleStepClick = (step) => {
+        setActiveStep(step);
+        startAutoPlay();
+    };
 
     // Función para determinar la clase de animación
     const getAnimationClass = () => {
@@ -345,35 +394,47 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
     };
 
     // Step visual igual a empresa
-    const Step = ({ step, label, borderColor, icon, hexImg }) => (
-        <div
-            onClick={() => setActiveStep(step)}
-            style={{
-                display: "flex",
-                alignItems: "center",
-                position: "relative",
-                cursor: "pointer",
-                opacity: activeStep === step ? 1 : 0.6,
-                transition: "all 0.3s ease",
-                marginBottom: isMobile ? 16 : 24,
-                transform: activeStep === step ? "translateX(0)" : "translateX(-8px)"
-            }}
-        >
-            <HexIcon icon={icon} hexImg={hexImg} alt={`hex-step-${step}`} isMobile={isMobile} />
+    const Step = ({ step, label, iconColor, pastelBg }) => {
+        const icons = {
+            1: <IoCloudUploadOutline color={iconColor} />,
+            2: <IoPencilOutline color={iconColor} />,
+            3: <IoHourglassOutline color={iconColor} />
+        };
+
+        return (
             <div
+                onClick={() => handleStepClick(step)}
                 style={{
-                    border: `1px solid ${borderColor}`,
-                    borderRadius: 12,
-                    padding: isMobile ? "12px 16px 12px 32px" : "16px 24px 16px 40px",
-                    background: "#ffffff",
-                    textAlign: "left",
-                    marginLeft: isMobile ? -20 : -28,
-                    minWidth: isMobile ? 200 : 300,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: isMobile ? 16 : 20,
+                    cursor: "pointer",
+                    borderRadius: 16,
+                    border: "1px solid #D7D7D8",
+                    background: "#FFFFFF",
+                    padding: isMobile ? "16px 20px" : "20px 24px",
                     transition: "all 0.3s ease",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
-                    transform: activeStep === step ? "scale(1.02)" : "scale(1)"
+                    opacity: activeStep === step ? 1 : 0.7,
+                    marginBottom: isMobile ? 12 : 16,
+                    width: isMobile ? "100%" : "auto",
+                    minWidth: isMobile ? "100%" : 320,
+                    boxShadow: activeStep === step ? "0 8px 24px rgba(0, 0, 0, 0.12)" : "0 2px 8px rgba(0, 0, 0, 0.05)"
                 }}
             >
+                <div
+                    style={{
+                        width: isMobile ? 48 : 56,
+                        height: isMobile ? 48 : 56,
+                        borderRadius: 12,
+                        background: pastelBg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0
+                    }}
+                >
+                    {React.cloneElement(icons[step], { size: isMobile ? 24 : 28 })}
+                </div>
                 <span
                     style={{
                         fontWeight: 600,
@@ -387,8 +448,8 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                     {label}
                 </span>
             </div>
-        </div>
-    );
+        );
+    };
 
     if (isMobile) {
         return (
@@ -449,23 +510,20 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                     <Step
                         step={1}
                         label="Carga tus datos"
-                        borderColor="#000B81"
-                        icon={<IoCloudUploadOutline color="#000B81" />}
-                        hexImg={BlueHex}
+                        iconColor="#000B81"
+                        pastelBg="#E0DFFF"
                     />
                     <Step
                         step={2}
                         label="Personaliza tu perfil"
-                        borderColor="#29158C"
-                        icon={<IoPencilOutline color="#29158C" />}
-                        hexImg={IndigoHex}
+                        iconColor="#29158C"
+                        pastelBg="#DFD9FF"
                     />
                     <Step
                         step={3}
                         label="Espera las ofertas laborales"
-                        borderColor="#4B1C84"
-                        icon={<IoHourglassOutline color="#4B1C84" />}
-                        hexImg={VioletHex}
+                        iconColor="#4B1C84"
+                        pastelBg="#F8E9FF"
                     />
                 </div>
             </div>
@@ -551,23 +609,20 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                 <Step
                     step={1}
                     label="Carga tus datos"
-                    borderColor="#000B81"
-                    icon={<IoCloudUploadOutline color="#000B81" />}
-                    hexImg={BlueHex}
+                    iconColor="#000B81"
+                    pastelBg="#E0DFFF"
                 />
                 <Step
                     step={2}
                     label="Personaliza tu perfil"
-                    borderColor="#29158C"
-                    icon={<IoPencilOutline color="#29158C" />}
-                    hexImg={IndigoHex}
+                    iconColor="#29158C"
+                    pastelBg="#DFD9FF"
                 />
                 <Step
                     step={3}
                     label="Espera las ofertas laborales"
-                    borderColor="#4B1C84"
-                    icon={<IoHourglassOutline color="#4B1C84" />}
-                    hexImg={VioletHex}
+                    iconColor="#4B1C84"
+                    pastelBg="#F8E9FF"
                 />
             </div>
         </div>

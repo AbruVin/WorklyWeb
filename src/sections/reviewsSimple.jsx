@@ -54,18 +54,28 @@ const reviews = [
 	}
 ];
 
-const ReviewCard = ({ review, isMobile }) => (
-	<div style={{
-		background: "#fff",
-		borderRadius: isMobile ? 16 : 20,
-		padding: isMobile ? "24px 20px" : "32px 28px",
-		boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-		display: "flex",
-		flexDirection: "column",
-		height: "100%",
-		position: "relative",
-		border: `2px solid ${review.color}20`
-	}}>
+const ReviewCard = ({ review, isMobile }) => {
+	const [isHovered, setIsHovered] = useState(false);
+
+	return (
+	<div 
+		onMouseEnter={() => setIsHovered(true)}
+		onMouseLeave={() => setIsHovered(false)}
+		style={{
+			background: "#fff",
+			borderRadius: isMobile ? 16 : 20,
+			padding: isMobile ? "24px 20px" : "32px 28px",
+			boxShadow: isHovered ? "0 12px 40px rgba(0, 0, 0, 0.15)" : "0 8px 32px rgba(0, 0, 0, 0.1)",
+			display: "flex",
+			flexDirection: "column",
+			height: "100%",
+			position: "relative",
+			border: `2px solid ${review.color}20`,
+			transition: "all 0.3s ease",
+			transform: isHovered ? "translateY(-8px)" : "translateY(0)",
+			cursor: "pointer"
+		}}
+	>
 		{/* Header with avatar */}
 		<div style={{
 			display: "flex",
@@ -161,7 +171,8 @@ const ReviewCard = ({ review, isMobile }) => (
 			</div>
 		</div>
 	</div>
-);
+	);
+};
 
 export default function ReviewsSimple() {
 	const isMobile = useIsMobile();

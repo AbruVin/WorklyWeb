@@ -19,28 +19,28 @@ const updates = [
     title: "Sección 'Conectar'",
     description: "Publicaciones realizadas por empresas o reclutadores.",
     status: "Implementado",
-    statusColor: "#F5F3FF"
+    statusColor: "#F8E9FF"
   },
   {
     icon: <IoCodeWorkingOutline size={48} color="#000B81" />,
-    title: "Sincronización",
-    description: "Resumen con preguntas personalizadas de los talentos.",
-    status: "En desarrollo",
-    statusColor: "#EFF1FE"
-  },
-  {
-    icon: <IoCalendarOutline size={48} color="#616161" />,
     title: "Interfaz web",
     description: "Aplicación web para utilizar Workly desde computadoras.",
-    status: "Planificado",
-    statusColor: "#F6F6F6"
+    status: "En desarrollo",
+    statusColor: "#DEE2FF"
   },
   {
     icon: <IoCalendarOutline size={48} color="#616161" />,
     title: "Implementación de IA",
+    description: "Resumen con preguntas personalizadas de los talentos.",
+    status: "Planificado",
+    statusColor: "#E2E2E2"
+  },
+  {
+    icon: <IoCalendarOutline size={48} color="#616161" />,
+    title: "Sincronización",
     description: "Creación del perfil en base a aplicaciones externas como Linkedin.",
     status: "Planificado",
-    statusColor: "#F6F6F6"
+    statusColor: "#E2E2E2"
   }
 ];
 
@@ -83,7 +83,7 @@ export default function UpdatesSection() {
         onMouseEnter={() => setHoveredIndex(index)}
         onMouseLeave={() => setHoveredIndex(null)}
         style={{
-          background: "#ffffff",
+          background: "#F8F9FC",
           borderRadius: 16,
           padding: isMobile ? "24px" : "32px",
           width: "100%",
@@ -103,7 +103,8 @@ export default function UpdatesSection() {
         }}
       >
         <div style={{
-          background: "#F5F3F8",
+          background: update.status === "Planificado" ? "#E2E2E2" : 
+                      update.status === "En desarrollo" ? "#DEE2FF" : "#F8E9FF",
           borderRadius: 16,
           width: isMobile ? 64 : 80,
           height: isMobile ? 64 : 80,

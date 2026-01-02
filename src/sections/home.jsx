@@ -8,6 +8,15 @@ import img3Cel from "../assets/homeImgs/imgHomeCel3.svg";
 import "../App.css";
 import { IoChevronForward, IoChevronBack, IoChevronDown } from "react-icons/io5";
 
+// Agregar estilos globales para remover outline de botones
+const style = document.createElement("style");
+style.textContent = `
+	button:focus {
+		outline: none;
+	}
+`;
+document.head.appendChild(style);
+
 
 // Custom hook para detectar si es móvil
 function useIsMobile(breakpoint = 768) {
@@ -188,10 +197,14 @@ export default function Home() {
 					display: "inline-block", 
 					color: "#3B2580", 
 					fontSize: isMobile ? 20 : 24,
-					cursor: "pointer"
+					cursor: "pointer",
+					transition: "transform 0.3s ease",
+					filter: "drop-shadow(none)"
 				}}
+				onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-8px)"}
+				onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
 				onClick={() => {
-					document.getElementById('problematic')?.scrollIntoView({ 
+					document.getElementById('funciones')?.scrollIntoView({ 
 						behavior: 'smooth' 
 					});
 				}}>
