@@ -8,6 +8,28 @@ import {
 	IoChevronBack
 } from "react-icons/io5";
 
+// Agregar estilos globales para la animación de fade
+const style = document.createElement("style");
+style.textContent = `
+	@keyframes fadeInSlide {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	
+	.slide-card {
+		animation: fadeInSlide 0.4s ease-in-out;
+	}
+
+	button:focus {
+		outline: none;
+	}
+`;
+document.head.appendChild(style);
+
 // Hook para detectar si es móvil
 function useIsMobile(breakpoint = 768) {
 	const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
@@ -25,6 +47,7 @@ function SlideCard({ isMobile, LabelIcon, label, pastelBg, Icon, iconColor, chil
 
   return (
 	<div
+	  className="slide-card"
 	  onMouseEnter={() => setIsHovered(true)}
 	  onMouseLeave={() => setIsHovered(false)}
 	  style={{
@@ -62,25 +85,10 @@ function SlideCard({ isMobile, LabelIcon, label, pastelBg, Icon, iconColor, chil
 
 export default function Problematic() {
 	const isMobile = useIsMobile();
-	const [currentSlide, setCurrentSlide] = useState(1); // start centered
+	const [currentSlide, setCurrentSlide] = useState(0);
 	const [isVisible, setIsVisible] = useState(false);
 	const sectionRef = useRef(null);
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) setIsVisible(true);
-				});
-			},
-			{ threshold: 0.1 }
-		);
-
-		if (sectionRef.current) observer.observe(sectionRef.current);
-		return () => {
-			if (sectionRef.current) observer.unobserve(sectionRef.current);
-		};
-	}, []);
+	const timerRef = useRef(null);
 
 	const slides = [
 		{
@@ -105,29 +113,56 @@ export default function Problematic() {
 			iconColor: "#000B81",
 			content: (
 				<>
-					<span style={{ color: "#000B81" }}>7</span> de cada <span style={{ color: "#0f1a8fff" }}>10</span> personas tienen <span style={{ color: "#1622a3ff" }}>dificultades</span> para <span style={{ color: "#472e92ff" }}>encontrar </span> <span style={{ color: "#3734b4ff" }}>trabajo</span>				</>
-			)
-		},
-		{
-			key: "emp-2",
-			labelIcon: IoBriefcase,
-			label: "Empresas",
-			pastelBg: "#FCEAF8",
-			Icon: IoTimeOutline,
-			iconColor: "#4B1C84",
-			content: (
-				<>
-					Los <span style={{ color: "#3B2580" }}>reclutadores</span> pasan entre <span style={{ color: "#3B2580" }}>30 minutos</span> y <span style={{ color: "#3B2580" }}>2 horas</span> leyendo currículums
+					<span style={{ color: "#000B81" }}>7</span> de cada <span style={{ color: "#0f1a8fff" }}>10</span> personas tienen <span style={{ color: "#1622a3ff" }}>dificultades</span> para <span style={{ color: "#472e92ff" }}>encontrar </span> <span style={{ color: "#3734b4ff" }}>trabajo</span>
 				</>
 			)
 		}
 	];
 
-	const goNext = () => {
-		setCurrentSlide((p) => (p === slides.length - 1 ? 1 : p + 1));
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) setIsVisible(true);
+				});
+			},
+			{ threshold: 0.1 }
+		);
+
+		if (sectionRef.current) observer.observe(sectionRef.current);
+		return () => {
+			if (sectionRef.current) observer.unobserve(sectionRef.current);
+		};
+	}, []);
+
+	const startAutoPlay = () => {
+		if (timerRef.current) clearInterval(timerRef.current);
+		timerRef.current = setInterval(() => {
+			setCurrentSlide((prev) => (prev + 1) % slides.length);
+		}, 4000);
 	};
+
+	// Auto-play: cambiar slides automáticamente cada 4 segundos
+	useEffect(() => {
+		startAutoPlay();
+		return () => {
+			if (timerRef.current) clearInterval(timerRef.current);
+		};
+	}, [slides.length]);
+
+	const goNext = () => {
+		setCurrentSlide((prev) => (prev + 1) % slides.length);
+		startAutoPlay();
+	};
+	
 	const goPrev = () => {
-		setCurrentSlide((p) => (p === 0 ? 1 : p - 1));
+		setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+		startAutoPlay();
+	};
+
+	const handleDotClick = (index) => {
+		setCurrentSlide(index);
+		startAutoPlay();
 	};
 
 	return (
@@ -156,7 +191,8 @@ export default function Problematic() {
 
 			{isMobile ? (
 				<div style={{ width: "100%", maxWidth: 680, display: "flex", flexDirection: "column", alignItems: "center" }}>
-					{slides[currentSlide] && (
+					{/* Carousel Container */}
+					<div style={{ width: "100%", position: "relative", overflow: "hidden" }}>
 						<SlideCard
 							isMobile={isMobile}
 							LabelIcon={slides[currentSlide].labelIcon}
@@ -167,15 +203,16 @@ export default function Problematic() {
 						>
 							{slides[currentSlide].content}
 						</SlideCard>
-					)}
+					</div>
 
+					{/* Navigation */}
 					<div style={{ display: "flex", gap: 14, marginTop: 20, alignItems: "center" }}>
 						<button onClick={goPrev} style={{ background: "#3B2580", border: "none", borderRadius: 20, width: 40, height: 40, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
 							<IoChevronBack size={18} />
 						</button>
 						<div style={{ display: "flex", gap: 8 }}>
 							{slides.map((_, idx) => (
-								<span key={idx} onClick={() => setCurrentSlide(idx)} style={{ width: 8, height: 8, borderRadius: "50%", background: idx === currentSlide ? "#3B2580" : "#d9dcee", display: "inline-block", cursor: "pointer" }} />
+								<span key={idx} onClick={() => handleDotClick(idx)} style={{ width: 8, height: 8, borderRadius: "50%", background: idx === currentSlide ? "#3B2580" : "#d9dcee", display: "inline-block", cursor: "pointer", transition: "all 0.3s ease" }} />
 							))}
 						</div>
 						<button onClick={goNext} style={{ background: "#3B2580", border: "none", borderRadius: 20, width: 40, height: 40, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>

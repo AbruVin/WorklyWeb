@@ -145,7 +145,8 @@ export default function Home() {
 								height: "100%",
 								maxHeight: "100%",
 								minHeight: "100%",
-								objectFit: "cover",
+								objectFit: "contain",
+								objectPosition: "center",
 								flexShrink: 0,
 								flexGrow: 0
 							}}
@@ -193,7 +194,7 @@ export default function Home() {
 				zIndex: 4,
 				animationDelay: "1s"
 			}}>
-				<span className="hover-scale" style={{ 
+				<span className="scale" style={{ 
 					display: "inline-block", 
 					color: "#3B2580", 
 					fontSize: isMobile ? 20 : 24,
@@ -201,8 +202,6 @@ export default function Home() {
 					transition: "transform 0.3s ease",
 					filter: "drop-shadow(none)"
 				}}
-				onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-8px)"}
-				onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}
 				onClick={() => {
 					document.getElementById('funciones')?.scrollIntoView({ 
 						behavior: 'smooth' 

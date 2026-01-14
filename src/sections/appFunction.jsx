@@ -132,24 +132,24 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: isMobile ? 16 : 20,
+                    gap: isMobile ? 12 : 20,
                     cursor: "pointer",
                     borderRadius: 16,
                     border: "1px solid #D7D7D8",
                     background: "#FFFFFF",
-                    padding: isMobile ? "16px 20px" : "20px 24px",
+                    padding: isMobile ? "14px 16px" : "20px 24px",
                     transition: "all 0.3s ease",
                     opacity: activeStep === step ? 1 : 0.7,
-                    marginBottom: isMobile ? 12 : 16,
-                    width: isMobile ? "100%" : "auto",
+                    marginBottom: isMobile ? 0 : 16,
+                    width: "100%",
                     minWidth: isMobile ? "100%" : 320,
                     boxShadow: activeStep === step ? "0 8px 24px rgba(0, 0, 0, 0.12)" : "0 2px 8px rgba(0, 0, 0, 0.05)"
                 }}
             >
                 <div
                     style={{
-                        width: isMobile ? 48 : 56,
-                        height: isMobile ? 48 : 56,
+                        width: isMobile ? 40 : 56,
+                        height: isMobile ? 40 : 56,
                         borderRadius: 12,
                         background: pastelBg,
                         display: "flex",
@@ -158,12 +158,12 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                         flexShrink: 0
                     }}
                 >
-                    {React.cloneElement(icons[step], { size: isMobile ? 24 : 28 })}
+                    {React.cloneElement(icons[step], { size: isMobile ? 20 : 28 })}
                 </div>
                 <span
                     style={{
                         fontWeight: 600,
-                        fontSize: isMobile ? 15 : 17,
+                        fontSize: isMobile ? 13 : 17,
                         color: "#232323",
                         fontFamily: "Montserrat",
                         lineHeight: 1.2,
@@ -183,55 +183,46 @@ const SlideRec = ({ isMobile, activeStep, setActiveStep }) => {
                 width: "100%", 
                 height: "auto",
                 flexDirection: "column",
-                alignItems: "center",
+                alignItems: "flex-start",
                 padding: "24px 16px",
-                gap: 32
+                gap: 24
             }}>
-                {/* Header */}
+                {/* Header - Left aligned */}
                 <div style={{ 
-                    width: "100%",
                     display: "flex",
-                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 24
+                    gap: 8
                 }}>
-                    <div style={{ 
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        justifyContent: "center"
+                    <IoBusiness size={20} color="#948AA0" style={{ display: "block", flexShrink: 0 }} />
+                    <span style={{ 
+                        color: "#948AA0", 
+                        fontWeight: 600, 
+                        fontSize: 14, 
+                        fontFamily: "Montserrat",
+                        lineHeight: 1
                     }}>
-                        <IoBusiness size={20} color="#948AA0" style={{ display: "block" }} />
-                        <span style={{ 
-                            color: "#948AA0", 
-                            fontWeight: 600, 
-                            fontSize: 14, 
-                            fontFamily: "Montserrat",
-                            lineHeight: 1
-                        }}>
-                            Empresas
-                        </span>
-                    </div>
+                        Empresas
+                    </span>
+                </div>
 
-                    {/* Phone Image */}
-                    <div style={{ width: "100%", maxWidth: 280, textAlign: "center" }}>
-                        <img
-                            key={activeStep}
-                            src={stepImages[activeStep]}
-                            alt="Empresas"
-                            className={getAnimationClass()}
-                            style={{
-                                width: "100%",
-                                height: "auto",
-                                objectFit: "contain",
-                                transition: "all 0.3s ease"
-                            }}
-                        />
-                    </div>
+                {/* Phone Image */}
+                <div style={{ width: "100%", maxWidth: 280 }}>
+                    <img
+                        key={activeStep}
+                        src={stepImages[activeStep]}
+                        alt="Empresas"
+                        className={getAnimationClass()}
+                        style={{
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "contain",
+                            transition: "all 0.3s ease"
+                        }}
+                    />
                 </div>
 
                 {/* Steps */}
-                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
                     <Step
                         step={1}
                         label="Regístrate"
@@ -407,24 +398,24 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: isMobile ? 16 : 20,
+                    gap: isMobile ? 12 : 20,
                     cursor: "pointer",
                     borderRadius: 16,
                     border: "1px solid #D7D7D8",
                     background: "#FFFFFF",
-                    padding: isMobile ? "16px 20px" : "20px 24px",
+                    padding: isMobile ? "14px 16px" : "20px 24px",
                     transition: "all 0.3s ease",
                     opacity: activeStep === step ? 1 : 0.7,
-                    marginBottom: isMobile ? 12 : 16,
-                    width: isMobile ? "100%" : "auto",
+                    marginBottom: isMobile ? 0 : 16,
+                    width: "100%",
                     minWidth: isMobile ? "100%" : 320,
                     boxShadow: activeStep === step ? "0 8px 24px rgba(0, 0, 0, 0.12)" : "0 2px 8px rgba(0, 0, 0, 0.05)"
                 }}
             >
                 <div
                     style={{
-                        width: isMobile ? 48 : 56,
-                        height: isMobile ? 48 : 56,
+                        width: isMobile ? 40 : 56,
+                        height: isMobile ? 40 : 56,
                         borderRadius: 12,
                         background: pastelBg,
                         display: "flex",
@@ -433,12 +424,12 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                         flexShrink: 0
                     }}
                 >
-                    {React.cloneElement(icons[step], { size: isMobile ? 24 : 28 })}
+                    {React.cloneElement(icons[step], { size: isMobile ? 20 : 28 })}
                 </div>
                 <span
                     style={{
                         fontWeight: 600,
-                        fontSize: isMobile ? 15 : 17,
+                        fontSize: isMobile ? 13 : 17,
                         color: "#232323",
                         fontFamily: "Montserrat",
                         lineHeight: 1.2,
@@ -458,55 +449,46 @@ const SlideEmp = ({ isMobile, activeStep, setActiveStep }) => {
                 width: "100%", 
                 height: "auto",
                 flexDirection: "column",
-                alignItems: "center",
+                alignItems: "flex-start",
                 padding: "24px 16px",
-                gap: 32
+                gap: 24
             }}>
-                {/* Header */}
+                {/* Header - Left aligned */}
                 <div style={{ 
-                    width: "100%",
                     display: "flex",
-                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 24
+                    gap: 8
                 }}>
-                    <div style={{ 
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        justifyContent: "center"
+                    <IoBriefcase size={20} color="#948AA0" style={{ display: "block", flexShrink: 0 }} />
+                    <span style={{ 
+                        color: "#948AA0", 
+                        fontWeight: 600, 
+                        fontSize: 14, 
+                        fontFamily: "Montserrat",
+                        lineHeight: 1
                     }}>
-                        <IoBriefcase size={20} color="#948AA0" style={{ display: "block" }} />
-                        <span style={{ 
-                            color: "#948AA0", 
-                            fontWeight: 600, 
-                            fontSize: 14, 
-                            fontFamily: "Montserrat",
-                            lineHeight: 1
-                        }}>
-                            Profesionales
-                        </span>
-                    </div>
+                        Profesionales
+                    </span>
+                </div>
 
-                    {/* Phone Image */}
-                    <div style={{ width: "100%", maxWidth: 280, textAlign: "center" }}>
-                        <img
-                            key={activeStep}
-                            src={stepImages[activeStep]}
-                            alt="Empleados"
-                            className={getAnimationClass()}
-                            style={{
-                                width: "100%",
-                                height: "auto",
-                                objectFit: "contain",
-                                transition: "all 0.3s ease"
-                            }}
-                        />
-                    </div>
+                {/* Phone Image */}
+                <div style={{ width: "100%", maxWidth: 280 }}>
+                    <img
+                        key={activeStep}
+                        src={stepImages[activeStep]}
+                        alt="Empleados"
+                        className={getAnimationClass()}
+                        style={{
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "contain",
+                            transition: "all 0.3s ease"
+                        }}
+                    />
                 </div>
 
                 {/* Steps */}
-                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12 }}>
                     <Step
                         step={1}
                         label="Carga tus datos"
@@ -671,10 +653,10 @@ export default function Functions() {
         background: "#ffffff",
         borderRadius: 20,
         boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
-        padding: isMobile ? "24px" : "40px",
+        padding: isMobile ? "20px" : "40px",
         minWidth: isMobile ? "100%" : 600,
-        minHeight: isMobile ? 520 : 520,
-        height: isMobile ? "auto" : "auto",
+        minHeight: isMobile ? "auto" : 520,
+        height: isMobile ? "auto" : 600,
         width: isMobile ? "100%" : 1000,
         flexDirection: "column",
         justifyContent: "flex-start",
@@ -806,11 +788,11 @@ export default function Functions() {
             </div>
             <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 {selected === "empresa" ? (
-                    <div style={{ ...boxBaseStyle, minHeight: 520, height: 600 }}>
+                    <div style={{ ...boxBaseStyle }}>
                         <SlideRec isMobile={isMobile} activeStep={activeStepRec} setActiveStep={setActiveStepRec} />
                     </div>
                 ) : (
-                    <div style={{ ...boxBaseStyle, minHeight: 520, height: 600 }}>
+                    <div style={{ ...boxBaseStyle }}>
                         <SlideEmp isMobile={isMobile} activeStep={activeStepEmp} setActiveStep={setActiveStepEmp} />
                     </div>
                 )}
