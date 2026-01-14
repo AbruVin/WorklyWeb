@@ -145,7 +145,7 @@ export default function Home() {
 								height: "100%",
 								maxHeight: "100%",
 								minHeight: "100%",
-								objectFit: "contain",
+								objectFit: "cover",
 								objectPosition: "center",
 								flexShrink: 0,
 								flexGrow: 0
