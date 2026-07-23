@@ -291,6 +291,34 @@ export default function Footer() {
                   </button>
                 </li>
               ))}
+              <li style={{ marginTop: isMobile ? 0 : 8 }}>
+                <a
+                  href="/privacidad/"
+                  style={{
+                    color: "#bdb8c7",
+                    fontWeight: 500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 15,
+                    textDecoration: "none"
+                  }}
+                >
+                  Política de Privacidad
+                </a>
+              </li>
+              <li style={{ marginTop: isMobile ? 0 : 6 }}>
+                <a
+                  href="/terminos/"
+                  style={{
+                    color: "#bdb8c7",
+                    fontWeight: 500,
+                    fontFamily: 'Montserrat',
+                    fontSize: 15,
+                    textDecoration: "none"
+                  }}
+                >
+                  Términos y Condiciones
+                </a>
+              </li>
               <li style={{
                 marginTop: isMobile ? 0 : 8
               }}>
