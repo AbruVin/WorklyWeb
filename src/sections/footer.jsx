@@ -22,6 +22,7 @@ const FOOTER_NAV = [
 const LEGAL_LINKS = [
   { href: "/privacidad/", label: "Política de Privacidad" },
   { href: "/terminos/", label: "Términos y Condiciones" },
+  { href: "/seguridad-infantil/", label: "Estándares EASI / CSAE" },
   { href: "/eliminar-cuenta/", label: "Eliminar cuenta y datos" }
 ];
 
